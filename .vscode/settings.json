@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "pipeline.h": "c"
+        "pipeline.h": "c",
+        "redirect.h": "c"
     }
 }

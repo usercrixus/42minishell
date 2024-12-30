@@ -5,6 +5,7 @@ OBJS = \
 		input/input.o \
 		input/path.o \
 		pipeline/pipeline.o \
+		redirection/redirect.o \
 
 all: submodule 42libft.a minishell
 
