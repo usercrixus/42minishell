@@ -6,26 +6,29 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:56:03 by achaisne          #+#    #+#             */
-/*   Updated: 2024/12/30 15:07:56 by achaisne         ###   ########.fr       */
+/*   Updated: 2024/12/31 00:06:07 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipeline.h"
 
-int	execute_child(char **argv, int limit)
+int	execute_child(char *command_str)
 {
 	char	**command;
 	char	*command_buffer;
+	int		redirect_status;
 
-	command = ft_split(argv[limit], ' ');
+	command = ft_split(command_str, ' ');
 	if (!command)
 		return (ft_putstr_fd("Split failed in execute_child\n", 2), 0);
+	redirect_status = redirect(command);
 	command_buffer = command[0];
 	command[0] = pathed_command(command[0]);
 	if (!command[0])
 	{
-		ft_free_split(command);
-		return (ft_putstr_fd("Command is null in execute_child\n", 2), 0);
+		if (!redirect_status)
+			ft_putstr_fd("Null command detected\n", 2);
+		return (ft_free_split(command), 0);
 	}
 	if (command[0] != command_buffer)
 		free(command_buffer);
@@ -60,7 +63,7 @@ int	manage_parent(int pipefd[2])
 	return (1);
 }
 
-int	launch_pipe_series(char **argv, int limit, int max)
+int	launch_pipe_series(char **commands, int limit, int max)
 {
 	int		pid;
 	int		pipefd[2];
@@ -76,8 +79,8 @@ int	launch_pipe_series(char **argv, int limit, int max)
 	{
 		if (!manage_child(pipefd, limit != max))
 			exit(1);
-		launch_pipe_series(argv, limit - 1, max);
-		if (!execute_child(argv, limit))
+		launch_pipe_series(commands, limit - 1, max);
+		if (!execute_child(commands[limit]))
 			exit(1);
 		exit(0);
 	}

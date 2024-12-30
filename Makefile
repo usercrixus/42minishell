@@ -6,11 +6,13 @@ OBJS = \
 		input/path.o \
 		pipeline/pipeline.o \
 		redirection/redirect.o \
+		redirection/clean_command.o \
+		redirection/here_doc.o \
 
 all: submodule 42libft.a minishell
 
 minishell: $(OBJS)
-	cc $^ -g3 42libft/ft_base/libft.a -lreadline -o $@
+	cc $^ -g3 42libft/ft_base/libft.a 42libft/ft_str/libftstr.a -lreadline -o $@
 
 %.o: %.c
 	cc -c $< -Wall -Wextra -Werror -g3 -o $@

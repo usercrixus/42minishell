@@ -1,6 +1,9 @@
 {
     "files.associations": {
         "pipeline.h": "c",
-        "redirect.h": "c"
+        "redirect.h": "c",
+        "fcntl.h": "c",
+        "ft_str.h": "c",
+        "libft.h": "c"
     }
 }
