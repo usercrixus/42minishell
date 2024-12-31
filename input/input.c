@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2024/12/30 15:07:15 by achaisne         ###   ########.fr       */
+/*   Updated: 2024/12/31 02:20:07 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ int	manage_line(char *line)
 int	input_loop(void)
 {
 	char	*line;
-	int		stdin_cpy;
 
-	stdin_cpy = dup(STDIN_FILENO);
 	while (1)
 	{
 		printf("> ");
@@ -45,7 +43,6 @@ int	input_loop(void)
 			return (0);
 		manage_line(line);
 		free(line);
-		dup2(stdin_cpy, STDIN_FILENO);
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:56:03 by achaisne          #+#    #+#             */
-/*   Updated: 2024/12/31 00:06:07 by achaisne         ###   ########.fr       */
+/*   Updated: 2024/12/31 02:20:56 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ int	manage_child(int pipefd[2], int redirect)
 	return (1);
 }
 
-int	manage_parent(int pipefd[2])
+int	manage_parent(int pipefd[2], int redirect)
 {
-	if (dup2(pipefd[0], STDIN_FILENO) == -1)
+	if (redirect && dup2(pipefd[0], STDIN_FILENO) == -1)
 		return (0);
 	if (close(pipefd[1]) == -1)
 		return (0);
@@ -85,7 +85,7 @@ int	launch_pipe_series(char **commands, int limit, int max)
 		exit(0);
 	}
 	else if (pid > 0)
-		if (!manage_parent(pipefd))
+		if (!manage_parent(pipefd, limit != max))
 			return (0);
 	return (1);
 }
