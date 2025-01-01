@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:57:42 by achaisne          #+#    #+#             */
-/*   Updated: 2024/12/30 16:25:32 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/01 01:21:41 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include "../42libft/ft_base/libft.h"
 # include "../input/input.h"
-# include "../redirection/redirect.h"
+# include "./../input/input.h"
 
 extern char	**environ;
 
@@ -28,6 +28,8 @@ extern char	**environ;
  * limit : number of command -1 (typicaly the split size -1)
  * max : same as limit
  */
-int			launch_pipe_series(char **argv, int limit, int max);
+int		launch_pipe_series(t_command_data *command_data, int limit, int max);
+int		execute_child(char **command);
+void	close_fds(int *fds, int size);
 
 #endif

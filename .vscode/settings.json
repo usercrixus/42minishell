@@ -4,6 +4,7 @@
         "redirect.h": "c",
         "fcntl.h": "c",
         "ft_str.h": "c",
-        "libft.h": "c"
+        "libft.h": "c",
+        "input.h": "c"
     }
 }

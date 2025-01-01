@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2024/12/31 02:20:07 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/01 01:10:49 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 
 int	manage_line(char *line)
 {
-	char	**commands;
-	int		i;
+	int				commands_size;
+	t_command_data	commands_data;
 
-	commands = ft_split(line, '|');
-	if (!commands)
-		return (0);
-	i = 0;
-	while (commands[i])
-		i++;
-	launch_pipe_series(commands, i - 1, i - 1);
-	while (i-- > 0)
+	commands_data.commands_array = get_commands_array(line);
+	commands_data.input_array = get_input_array(commands_data.commands_array);
+	commands_data.output_array = get_output_array(commands_data.commands_array);
+	commands_size = get_command_array_size(commands_data.commands_array);
+	launch_pipe_series(&commands_data, commands_size - 1, commands_size - 1);
+	while (commands_size-- > 0)
 		waitpid(-1, NULL, 0);
-	ft_free_split(commands);
+	free(commands_data.input_array);
+	free(commands_data.output_array);
+	destroy_commands_array(commands_data.commands_array);
 	return (1);
 }
 

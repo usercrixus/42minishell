@@ -6,11 +6,11 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 22:27:35 by achaisne          #+#    #+#             */
-/*   Updated: 2024/12/30 22:49:44 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/01 01:09:08 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./redirect.h"
+#include "./here_doc.h"
 
 int	build_here_doc(t_str *str, char *delimiter)
 {
@@ -49,4 +49,23 @@ int	set_here_doc(char *delimiter)
 		return (free(buff), ft_str_free(str), 0);
 	write(tmp_file, buff, str->size - str->start);
 	return (close(tmp_file), free(buff), ft_str_free(str), 1);
+}
+
+int	get_here_doc(char *delimiter)
+{
+	int	fd_in;
+
+	if (!set_here_doc(delimiter))
+		return (0);
+	fd_in = open(delimiter, O_RDONLY);
+	if (fd_in == -1)
+	{
+		perror(delimiter);
+		fd_in = open("/dev/null", O_RDONLY);
+		if (fd_in == -1)
+			return (perror("Failed to open /dev/null"), 0);
+	}
+	if (unlink(delimiter) == -1)
+		return (close(fd_in), 0);
+	return (fd_in);
 }

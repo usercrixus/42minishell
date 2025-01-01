@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:14:11 by achaisne          #+#    #+#             */
-/*   Updated: 2024/12/30 15:07:43 by achaisne         ###   ########.fr       */
+/*   Updated: 2024/12/31 21:14:16 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,17 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
-
 # include "../42libft/ft_base/libft.h"
+# include "commands_array.h"
+# include "input_array.h"
+# include "output_array.h"
+
+typedef struct s_command_data
+{
+	char	***commands_array;
+	int		*input_array;
+	int		*output_array;
+}	t_command_data;
 
 extern char	**environ;
 /**

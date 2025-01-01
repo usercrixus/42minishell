@@ -4,10 +4,15 @@ OBJS = \
 		main.o \
 		input/input.o \
 		input/path.o \
+		input/commands_array.o \
+		input/here_doc.o \
+		input/input_array.o \
+		input/input.o \
+		input/output_array.o \
+		input/path.o \
+		input/utils.o \
 		pipeline/pipeline.o \
-		redirection/redirect.o \
-		redirection/clean_command.o \
-		redirection/here_doc.o \
+		pipeline/utils.o \
 
 all: submodule 42libft.a minishell
 
