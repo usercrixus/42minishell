@@ -5,6 +5,10 @@
         "fcntl.h": "c",
         "ft_str.h": "c",
         "libft.h": "c",
-        "input.h": "c"
+        "input.h": "c",
+        "output_array.h": "c"
+    },
+    "files.exclude": {
+        "**/*.o": true
     }
 }

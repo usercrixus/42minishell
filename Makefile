@@ -3,14 +3,13 @@ MAKEFLAGS += --no-print-directory
 OBJS = \
 		main.o \
 		input/input.o \
-		input/path.o \
 		input/commands_array.o \
 		input/here_doc.o \
 		input/input_array.o \
 		input/input.o \
 		input/output_array.o \
-		input/path.o \
 		input/utils.o \
+		pipeline/path.o \
 		pipeline/pipeline.o \
 		pipeline/utils.o \
 

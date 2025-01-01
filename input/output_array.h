@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 20:34:09 by achaisne          #+#    #+#             */
-/*   Updated: 2024/12/31 21:01:25 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/01 18:15:34 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 # include <sys/stat.h>
 # include "utils.h"
 
+/**
+ * commands_array : the pointer commands_array
+ * return : Array of fd. Each fd is on the rank of the command (example : 
+ * value[0] represent the fd representing the output redirection of
+ * the first command, 0 if no redirection)
+ */
 int	*get_output_array(char ***commands_array);
 
 #endif

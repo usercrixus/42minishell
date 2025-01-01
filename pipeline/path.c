@@ -6,11 +6,11 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:21:01 by achaisne          #+#    #+#             */
-/*   Updated: 2024/12/30 15:06:20 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/01 18:28:50 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./input.h"
+#include "./pipeline.h"
 
 char	**get_path(void)
 {
@@ -34,7 +34,7 @@ char	**get_path(void)
 	return (paths);
 }
 
-char	*pathed_command(char *command)
+char	*get_pathed_command(char *command)
 {
 	char	*command_pathed;
 	char	*path;
