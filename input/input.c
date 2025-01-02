@@ -37,10 +37,11 @@ int	input_loop(void)
 
 	while (1)
 	{
-		printf("> ");
+		printf("minishell >> ");
 		line = readline(STDIN_FILENO);
 		if (!line)
 			return (0);
+		add_history(line);
 		manage_line(line);
 		free(line);
 	}
