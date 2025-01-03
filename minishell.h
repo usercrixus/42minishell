@@ -6,7 +6,11 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/01/03 19:45:16 by achaisne         ###   ########.fr       */
+=======
+/*   Updated: 2025/01/03 17:53:10 by gmorel           ###   ########.fr       */
+>>>>>>> 4e9222793a36aff931ba44edd2e3cf123f03efa2
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +39,11 @@ typedef struct s_command_data
 	int		*output_array;
 }	t_command_data;
 
+extern char	**environe;
 extern char	**environ;
 extern volatile sig_atomic_t g_command_running;
 
+void	export(char **vars);
 
 /**
  * launch a series of command separated by a pipe.
@@ -134,5 +140,7 @@ int		get_command_array_size(char ***commands_array);
 int		reconstruct_quote(char ***commands);
 
 char	**special_split(char const *s, char c);
+
+void	setup_signals(void);
 
 #endif
