@@ -6,39 +6,11 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/03 16:25:19 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/03 18:04:46 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void handle_sigint(int sig) 
-{
-	(void)sig;
-	if (g_command_running)
-    {
-        write(STDOUT_FILENO, "\n", 1);
-        return;
-    }
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
-void setup_signals(void)
-{
-	if (signal(SIGINT, handle_sigint) == SIG_ERR)
-	{
-		perror("signal(SIGINT)");
-		exit(1);
-    }
-	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
-	{
-		perror("signal(SIGQUIT)");
-		exit(1);
-	}
-}
 
 int	manage_line(char *line)
 {

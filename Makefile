@@ -12,6 +12,8 @@ OBJS = \
 		pipeline/path.o \
 		pipeline/pipeline.o \
 		pipeline/utils.o \
+		signals/signals.o \
+		builtins/export.o \
 
 all: submodule 42libft.a minishell
 

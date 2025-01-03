@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/03 16:37:13 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/03 17:53:10 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@ typedef struct s_command_data
 	int		*output_array;
 }	t_command_data;
 
+extern char	**environe;
 extern char	**environ;
 extern volatile sig_atomic_t g_command_running;
+
+void	export(char **vars);
 
 /**
  * launch a series of command separated by a pipe.
@@ -125,6 +128,6 @@ void	destroy_commands_array(char ***commands_array);
  */
 int		get_command_array_size(char ***commands_array);
 
-void setup_signals(void);
+void	setup_signals(void);
 
 #endif
