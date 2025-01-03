@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/03 15:40:44 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/03 19:45:16 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,10 @@ int		is_syntax_error(char *command);
  * shift (on the left) by 2 an array of char* (char **), freeing
  * the first 2 elements.
  * command : the command to shift
+ * len : the size of shift
  */
 
-void	shift(char **command);
+void	shift(char **command, int size);
 
 /**
  * commands_array : the pointer commands_array
@@ -125,5 +126,13 @@ void	destroy_commands_array(char ***commands_array);
  * return : the size of the command array
  */
 int		get_command_array_size(char ***commands_array);
+/**
+ * manage the quote of the command, interpreting with double quote and
+ * not with single quote.
+ * commands : the command to reconstruct
+ */
+int		reconstruct_quote(char ***commands);
+
+char	**special_split(char const *s, char c);
 
 #endif

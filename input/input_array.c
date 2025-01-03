@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_array.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 19:00:13 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/03 15:22:22 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/03 17:17:01 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	set_input(char **commands_array, int *fd_intput)
 				*fd_intput = get_here_doc(commands_array[i + 1]);
 			else
 				*fd_intput = open(commands_array[i + 1], O_RDONLY);
-			shift(commands_array + i);
+			shift(commands_array + i, 2);
 		}
 		else
 			i++;

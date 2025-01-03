@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands_array.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 14:31:30 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/03 15:22:26 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/03 18:59:13 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	***get_commands_array(char *line)
 	int		split_size;
 	int		i;
 
-	commands_string = ft_split(line, '|');
+	commands_string = special_split(line, '|');
 	if (!commands_string)
 		return (0);
 	split_size = ft_split_size(commands_string);
@@ -52,7 +52,7 @@ char	***get_commands_array(char *line)
 	i = 0;
 	while (i < split_size)
 	{
-		commands_array[i] = ft_split(commands_string[i], ' ');
+		commands_array[i] = special_split(commands_string[i], ' ');
 		if (!commands_array[i])
 			return (0);
 		i++;

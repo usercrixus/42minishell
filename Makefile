@@ -9,6 +9,8 @@ OBJS = \
 		input/input.o \
 		input/output_array.o \
 		input/utils.o \
+		input/special_split.o \
+		input/reconstruct_quote.o \
 		pipeline/path.o \
 		pipeline/pipeline.o \
 		pipeline/utils.o \
