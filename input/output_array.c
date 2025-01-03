@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   output_array.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 19:00:13 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/01 01:08:56 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:22:16 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "output_array.h"
+#include "../minishell.h"
 
 int	set_output(char **commands_array, int *fd_output)
 {

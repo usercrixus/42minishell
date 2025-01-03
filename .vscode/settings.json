@@ -6,7 +6,10 @@
         "ft_str.h": "c",
         "libft.h": "c",
         "input.h": "c",
-        "output_array.h": "c"
+        "output_array.h": "c",
+        "minishell.h": "c",
+        "stat.h": "c",
+        "readline.h": "c"
     },
     "files.exclude": {
         "**/*.o": true

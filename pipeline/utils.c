@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 01:20:48 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/01 18:28:50 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:21:50 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipeline.h"
+#include "../minishell.h"
 
 void	close_fds(int *fds, int size)
 {

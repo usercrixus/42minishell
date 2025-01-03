@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:56:03 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/01 01:24:06 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:22:08 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipeline.h"
+#include "../minishell.h"
 
 int	redirect_child(int pipefd[2], int output, int input, int is_redirect)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   commands_array.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 14:31:30 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/01 01:11:07 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:22:26 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "commands_array.h"
+#include "../minishell.h"
 
 int	get_command_array_size(char ***commands_array)
 {

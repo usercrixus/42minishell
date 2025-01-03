@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:21:01 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/01 18:28:50 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:22:11 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./pipeline.h"
+#include "../minishell.h"
 
 char	**get_path(void)
 {

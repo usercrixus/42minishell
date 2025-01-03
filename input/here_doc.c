@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 22:27:35 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/01 01:09:08 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:22:24 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./here_doc.h"
+#include "../minishell.h"
 
 int	build_here_doc(t_str *str, char *delimiter)
 {
