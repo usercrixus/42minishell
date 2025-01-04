@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/04 21:30:47 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/04 22:05:01 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,12 @@ int		set_command(char **commands, t_str *buffer, int i);
 char	**special_split(char const *s, char c);
 void	set_end(char const *s, char *is_active, int *i, char c);
 int		set_start(char const *s, char *is_active, int *i, char c);
+/**
+ * Try to launch a command corresponding to command[0]
+ * command : the command to launch
+ */
+int		builtin_integration(char **command);
+
 
 void	setup_signals(void);
 
