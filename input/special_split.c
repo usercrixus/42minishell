@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:17:36 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/03 19:21:37 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/04 20:14:18 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static int	tab_size(const char *s, char c)
 		{
 			if (s[i] == is_active)
 				is_active = 0;
-			else if (!is_active && (s[i] == '\'' || (!is_active && s[i] == '"')))
+			else if (!is_active && (s[i] == '\''
+					|| (!is_active && s[i] == '"')))
 				is_active = s[i];
 			i++;
 		}
@@ -57,19 +58,6 @@ static char	*get_string(const char *s, int start, int end)
 	return (buffer);
 }
 
-static void	free_split(char **result)
-{
-	int	i;
-
-	i = 0;
-	while (result[i])
-	{
-		free(result[i]);
-		i++;
-	}
-	free(result);
-}
-
 static int	populate(char const *s, char **result, char c)
 {
 	int		i;
@@ -83,17 +71,8 @@ static int	populate(char const *s, char **result, char c)
 	j = 0;
 	while (s[i])
 	{
-		while (!is_active && s[i] && s[i] == c)
-			i++;
-		start = i;
-		while (s[i] && (s[i] != c || is_active))
-		{
-			if (!is_active && (s[i] == '\'' || s[i] == '"'))
-				is_active = s[i];
-			else if (is_active && s[i] == is_active)
-				is_active = 0;
-			i++;
-		}
+		start = set_start(s, &is_active, &i, c);
+		set_end(s, &is_active, &i, c);
 		if (start != i)
 		{
 			buffer = get_string(s, start, i);
@@ -114,6 +93,6 @@ char	**special_split(char const *s, char c)
 	if (!result)
 		return (0);
 	if (!populate(s, result, c))
-		free_split(result);
+		ft_free_split(result);
 	return (result);
 }

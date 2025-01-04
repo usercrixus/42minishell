@@ -6,36 +6,32 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:37:10 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/03 20:29:07 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/04 21:29:30 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *get_env_var(char *s, char terminator)
+char	*get_env_var(char *s, char terminator)
 {
-	t_str	*str;
-	int		i;
-	char	*var_name;
-	int		len_var_name;
+	t_str		*str;
+	int			i;
+	char		*var_name;
+	char		*var_value;
 
 	str = ft_str_create();
 	i = 0;
 	while (s[i] && s[i] != ' ' && s[i] != terminator)
 		i++;
-	ft_str_push(str, s, i);
-	ft_str_push(str, "=", 1);
+	if (!ft_str_push(str, s, i))
+		return (0);
 	var_name = ft_str_get_char_array(str, str->size);
-	len_var_name = ft_strlen(var_name);
+	if (!var_name)
+		return (ft_str_free(str), (char *)0);
+	var_value = getenv(var_name);
+	free(var_name);
 	ft_str_free(str);
-	i = 0;
-	while (environ[i])
-	{
-		if (ft_strncmp(environ[i], var_name, strlen(var_name)) == 0)
-			return (&environ[i][len_var_name]);
-		i++;
-	}
-	return (0);
+	return (var_value);
 }
 
 int	get_char_occurence(char *str, char c)
@@ -54,13 +50,33 @@ int	get_char_occurence(char *str, char c)
 	return (result);
 }
 
-int	manage_reconstruct_quote(char **commands)
+int	push_buffer(char *command, char quote, t_str *buffer, int *j)
+{
+	char	*env_var;
+
+	if (quote != '\'' && command[*j] == '$')
+	{
+		(*j)++;
+		env_var = get_env_var(&command[*j], quote);
+		if (!env_var || !ft_str_push(buffer, env_var, ft_strlen(env_var)))
+			return (0);
+		while (command[*j]
+			&& (command[*j] != ' ' || (quote && command[*j] != quote)))
+			(*j)++;
+	}
+	else
+	{
+		if (!ft_str_push(buffer, &command[*j], 1))
+			return (0);
+		(*j)++;
+	}
+	return (1);
+}
+
+int	manage_reconstruct_quote(char **commands, char quote, t_str *buffer)
 {
 	int		i;
 	int		j;
-	char	quote;
-	t_str 	*buffer;
-	char	*env_var;
 
 	quote = 0;
 	i = 0;
@@ -68,39 +84,20 @@ int	manage_reconstruct_quote(char **commands)
 	{
 		j = 0;
 		buffer = ft_str_create();
+		if (!buffer)
+			return (0);
 		while (commands[i][j])
 		{
-			if (!quote && (commands[i][j] == '\'' || commands[i][j] == '"'))
-			{
-				quote = commands[i][j];
-				j++;
-			}
+			if (!quote && (commands[i][j] == '\'' || commands[i][j] == '"')
+				&& get_char_occurence(&commands[i][j], commands[i][j]) > 1)
+				set_quote(&quote, &j, commands[i][j]);
 			else if (commands[i][j] == quote)
-			{
-				quote = 0;
-				j++;
-			}
-			else
-			{
-				if (quote != '\'' && commands[i][j] == '$')
-				{
-					j++;
-					env_var = get_env_var(&commands[i][j], quote);
-					ft_str_push(buffer, env_var, ft_strlen(env_var));
-					//while (commands[i][j] && commands[i][j] != ' ' && (quote && commands[i][j] != quote))
-					j++;
-				}
-				else
-				{
-					ft_str_push(buffer, &commands[i][j], 1);
-					j++;
-				}
-			}
+				reset_quote(&quote, &j);
+			else if (!push_buffer(commands[i], quote, buffer, &j))
+				return (0);
 		}
-		free(commands[i]);
-		commands[i] = ft_str_get_char_array(buffer, buffer->size);
-		ft_str_free(buffer);
-		i++;
+		if (!set_command(commands, buffer, i++))
+			return (0);
 	}
 	return (1);
 }
@@ -112,7 +109,8 @@ int	reconstruct_quote(char ***commands)
 	i = 0;
 	while (commands[i])
 	{
-		manage_reconstruct_quote(commands[i]);
+		if (!manage_reconstruct_quote(commands[i], 0, 0))
+			return (0);
 		i++;
 	}
 	return (1);

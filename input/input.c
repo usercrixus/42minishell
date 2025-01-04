@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/03 20:33:26 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/04 20:16:07 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	manage_line(char *line)
 	int				commands_size;
 	t_command_data	commands_data;
 
- 	g_command_running = 1;
+	g_command_running = 1;
 	commands_data.commands_array = get_commands_array(line);
 	reconstruct_quote(commands_data.commands_array);
 	commands_data.input_array = get_input_array(commands_data.commands_array);
@@ -34,15 +34,15 @@ int	manage_line(char *line)
 
 int	input_loop(void)
 {
-	char *line;
+	char	*line;
 
 	setup_signals();
 	while (1)
 	{
 		g_command_running = 0;
 		line = readline("minishell> ");
-		if (!line) 
-            break ;
+		if (!line)
+			break ;
 		if (*line)
 		{
 			add_history(line);
@@ -50,5 +50,5 @@ int	input_loop(void)
 		}
 		free(line);
 	}
-	return 0;
+	return (0);
 }

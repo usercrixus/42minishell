@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/03 20:33:23 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/04 21:30:47 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include "./42libft/ft_base/libft.h"
 # include "./42libft/ft_str/ft_str.h"
 
-
 typedef struct s_command_data
 {
 	char	***commands_array;
@@ -35,12 +34,11 @@ typedef struct s_command_data
 	int		*output_array;
 }	t_command_data;
 
-extern char	**environe;
-extern char	**environ;
-extern volatile sig_atomic_t g_command_running;
+extern char						**environe;
+extern char						**environ;
+extern volatile sig_atomic_t	g_command_running;
 
 void	export(char **vars);
-
 /**
  * launch a series of command separated by a pipe.
  * Typicaly, split on pipe '|' character
@@ -67,7 +65,6 @@ void	close_fds(int *fds, int size);
  * return : command pathed, if not found, command. 0 for error.
  */
 char	*get_pathed_command(char *command);
-
 /**
  * check if there is a syntax error in the command
  * return : 1 if a syntax error is found, 0 if not
@@ -79,40 +76,34 @@ int		is_syntax_error(char *command);
  * command : the command to shift
  * len : the size of shift
  */
-
 void	shift(char **command, int size);
-
 /**
  * commands_array : the pointer commands_array
  * return : Array of fd. Each fd is on the rank of the command (example : 
  * value[0] represent the fd representing the output redirection of
  * the first command, 0 if no redirection)
  */
-int	*get_output_array(char ***commands_array);
-
+int		*get_output_array(char ***commands_array);
 /**
  * Infinite loop reading stdin.
  * 
  * return : 0 for error.
  */
-int			input_loop(void);
-
+int		input_loop(void);
 /**
  * create a file with the content set by the stdinput open by heredoc
  * 
  * delimiter : the here_doc delimiter
  * return : the file descriptor pointing in the file created by here_doc
  */
-int	get_here_doc(char *delimiter);
-
+int		get_here_doc(char *delimiter);
 /**
  * commands_array : the pointer commands_array
  * return : Array of fd. Each fd is on the rank of the command (example : 
  * value[0] represent the fd representing the input redirection of
  * the first command, 0 if no redirection)
  */
-int	*get_input_array(char ***commands_array);
-
+int		*get_input_array(char ***commands_array);
 /**
  * line : the line returned by readline (input of the terminal)
  * return : an array of char** (array of split), null terminated
@@ -134,8 +125,18 @@ int		get_command_array_size(char ***commands_array);
  * commands : the command to reconstruct
  */
 int		reconstruct_quote(char ***commands);
-
+void	reset_quote(char *quote, int *j);
+void	set_quote(char *quote, int *j, char c);
+int		set_command(char **commands, t_str *buffer, int i);
+/**
+ * Split the command, but deactivate the split when a quote (single or double)
+ * is found
+ * s : the command string
+ * c : the character to split on (here typicaly a space or a pipe)
+ */
 char	**special_split(char const *s, char c);
+void	set_end(char const *s, char *is_active, int *i, char c);
+int		set_start(char const *s, char *is_active, int *i, char c);
 
 void	setup_signals(void);
 
