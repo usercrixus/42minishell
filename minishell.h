@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/05 03:34:49 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/05 16:27:27 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,10 @@ void	export(char **vars);
  * launch a series of command separated by a pipe.
  * Typicaly, split on pipe '|' character
  * 
- * argv : array of commands string
- * limit : number of command -1 (typicaly the split size -1)
- * max : same as limit
+ * command_data : the t_command_data object
+ * max : number of command (typicaly the split size)
  */
-int		launch_pipe_series(t_command_data *command_data, int limit, int max);
+int		launch_pipe_series(t_command_data *command_data, int max);
 /**
  * path and launch the command (with execve)
  * command : the command to execute
@@ -111,6 +110,12 @@ int		*get_input_array(char ***commands_array);
  * return : an array of char** (array of split), null terminated
  */
 char	***get_commands_array(char *line);
+/**
+ * set the input and output array with pipe for all commands that have
+ * no redirection.
+ * commands_data : the t_comma,d_data object
+ */
+int		set_pipe_array(t_command_data *commands_data);
 /**
  * destroy (free) the commands array var.
  * commands_array : the pointer commands_array
