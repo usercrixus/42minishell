@@ -9,7 +9,8 @@
         "output_array.h": "c",
         "minishell.h": "c",
         "stat.h": "c",
-        "readline.h": "c"
+        "readline.h": "c",
+        "stdlib.h": "c"
     },
     "files.exclude": {
         "**/*.o": true

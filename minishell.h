@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/05 00:58:38 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/05 03:34:49 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
+# include <errno.h>     // For errno and ECHILD
+# include <sys/types.h> // For pid_t
 
 # include "./42libft/ft_printf/ft_printf.h"
 # include "./42libft/ft_base/libft.h"
