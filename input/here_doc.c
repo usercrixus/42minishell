@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 22:27:35 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/03 15:22:24 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/05 01:40:03 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	build_here_doc(t_str *str, char *delimiter)
 {
 	char	*line;
 
-	line = readline(STDIN_FILENO);
+	line = readline(">");
 	while (line && ft_strncmp(line, delimiter, ft_strlen(delimiter)) != 0)
 	{
 		if (!ft_str_push(str, line, ft_strlen(line)))
@@ -24,7 +24,7 @@ int	build_here_doc(t_str *str, char *delimiter)
 		free(line);
 		if (!ft_str_push(str, "\n", 1))
 			return (0);
-		line = readline(STDIN_FILENO);
+		line = readline(">");
 	}
 	free(line);
 	return (1);
