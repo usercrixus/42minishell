@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/04 22:05:01 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/05 00:58:38 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,12 @@ int		set_start(char const *s, char *is_active, int *i, char c);
  * command : the command to launch
  */
 int		builtin_integration(char **command);
-
+void	ft_pwd();
+void	ft_cd(char **command);
+void	ft_echo(char **command);
+void	ft_unset(char **command);
+void	ft_env(char **command);
+void	ft_export(char **command);
 
 void	setup_signals(void);
 

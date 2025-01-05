@@ -1,43 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/31 20:59:01 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/05 01:30:47 by achaisne         ###   ########.fr       */
+/*   Created: 2025/01/05 00:54:45 by achaisne          #+#    #+#             */
+/*   Updated: 2025/01/05 01:20:25 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	is_syntax_error(char *command)
+void ft_echo(char **command)
 {
-	if (!command)
-		return (1);
-	else if (ft_strncmp(command, "<<", 3) == 0)
-		return (1);
-	else if (ft_strncmp(command, "<", 2) == 0)
-		return (1);
-	return (0);
-}
-
-void	shift(char **command, int size)
-{
+	int	n_option;
 	int	i;
 
-	i = 0;
-	while (i < size)
+	n_option = 0;
+	i = 1;
+	while (command[i] && ft_strncmp(command[i], "-n", 3) == 0)
 	{
-		free(command[i]);
-		command[i] = 0;
+		n_option = 1;
 		i++;
 	}
 	while (command[i])
 	{
-		command[i - 2] = command[i];
-		command[i] = 0;
+		printf("%s", command[i]);
 		i++;
 	}
+	if (!n_option)
+		printf("\n");
 }

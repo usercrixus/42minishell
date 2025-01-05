@@ -18,6 +18,12 @@ OBJS = \
 		pipeline/utils.o \
 		signals/signals.o \
 		builtins/export.o \
+		builtins/pwd.o \
+		builtins/cd.o \
+		builtins/echo.o \
+		builtins/env.o \
+		builtins/pwd.o \
+		builtins/unset.o \
 		builtins/builtin_integration.o \
 
 all: submodule 42libft.a minishell
