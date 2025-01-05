@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:37:10 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/04 21:29:30 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/05 02:19:07 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	push_buffer(char *command, char quote, t_str *buffer, int *j)
 		if (!env_var || !ft_str_push(buffer, env_var, ft_strlen(env_var)))
 			return (0);
 		while (command[*j]
-			&& (command[*j] != ' ' || (quote && command[*j] != quote)))
+			&& command[*j] != ' ' && command[*j] != quote)
 			(*j)++;
 	}
 	else
