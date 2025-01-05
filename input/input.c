@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/05 06:24:20 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/05 06:53:39 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,14 @@ int	manage_line(char *line)
 int	input_loop(void)
 {
 	char	*line;
+	char	buff[50];
 
 	setup_signals();
 	while (1)
 	{
 		g_command_running = 0;
-		line = readline("\033[1;32mminishell@chodel\033[0m$ ");
+		printf("\033[1;32mminishell@chodel\033[0m:\033[1;34m%s", getcwd(buff, 50));
+		line = readline("\033[0m$ \033[0m");
 		if (!line)
 			return (1);
 		if (*line)

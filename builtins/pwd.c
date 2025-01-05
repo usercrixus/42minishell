@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:30:18 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/05 00:41:12 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/05 06:50:32 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void ft_pwd()
 {
-	printf("%s\n", getenv("PWD"));
+	char buff[50];
+	printf("%s\n", getcwd(buff, 50));
 }
