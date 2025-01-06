@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:56:03 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/05 16:46:31 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/05 17:58:25 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	launch_pipe_series(t_command_data *command_data, int max)
 			if (!execute_child(command_data->commands_array[i]))
 				exit(1);
 			else
-				exit (0);
+				exit(0);
 		}
 		i++;
 	}

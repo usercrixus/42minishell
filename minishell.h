@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/05 16:27:27 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/05 17:00:33 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	export(char **vars);
  * 
  * command_data : the t_command_data object
  * max : number of command (typicaly the split size)
+ * return : the pid of the last command of the pipe
  */
 int		launch_pipe_series(t_command_data *command_data, int max);
 /**
