@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/05 16:38:17 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/06 16:45:18 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,15 @@ int	execute_parent_commands(t_command_data	*commands_data)
 {
 	if (ft_strncmp(commands_data->commands_array[0][0], "exit", 5) == 0)
 		exit(0);
+	if (ft_strncmp(commands_data->commands_array[0][0], "env", 4) == 0)
+		return (ft_env(commands_data->commands_array[0]), 1);
+	if (ft_strncmp(commands_data->commands_array[0][0], "export", 7) == 0)
+		return (ft_export(commands_data->commands_array[0]), 1);
+	if (ft_strncmp(commands_data->commands_array[0][0], "unset", 6) == 0)
+		return (ft_unset(commands_data->commands_array[0]), 1);
 	if (ft_strncmp(commands_data->commands_array[0][0], "cd", 3) == 0)
 		return (ft_cd(commands_data->commands_array[0]), 1);
+
 	return (0);
 }
 

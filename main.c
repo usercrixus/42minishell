@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:02:50 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/05 15:41:26 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/06 16:42:27 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,31 @@
 #include <sys/syscall.h>
 
 volatile sig_atomic_t g_command_running = 0;
+char	**mini_env = NULL;
 
-int	main(int argc, char **argv)
+void	init_mini_env(char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+		i++;
+	mini_env = malloc((i + 1) * sizeof(char *));
+	i = 0;
+	while (envp[i])
+	{
+		mini_env[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	mini_env[i] = NULL;
+	return ;
+}
+
+int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
+	init_mini_env(envp);
 	input_loop();
 	return (0);
 }

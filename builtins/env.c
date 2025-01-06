@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:57:51 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/05 01:00:38 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/06 17:17:00 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 
 void	ft_env(char **command)
 {
+	int	i;
+
+	i = 0;
 	(void)command;
-	//TODO
+	while (mini_env[i])
+	{
+		printf("%s\n", mini_env[i]);
+		i++;
+	}
+	return ;
 }

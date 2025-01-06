@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/05 17:00:33 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/06 16:36:13 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ typedef struct s_command_data
 	int		*output_array;
 }	t_command_data;
 
-extern char						**environe;
-extern char						**environ;
+extern char						**mini_env;
 extern volatile sig_atomic_t	g_command_running;
 
 void	export(char **vars);

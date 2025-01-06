@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 17:10:09 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/05 00:58:52 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/06 17:17:02 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	**add_to_env(char *var)
 	char	**new_env;
 	int		size;
 	int		i;
-	char 	*key;
+/*	char 	*key;
 	
     key = ft_substr(var, 0, ft_strchr(var, '=') - var);
     if (!key)
@@ -34,31 +34,30 @@ char	**add_to_env(char *var)
         }
         i++;
     }
-    free(key);
-	size = ft_split_size(environ);
+    free(key);*/
+	size = ft_split_size(mini_env);
 	new_env = malloc((size + 2) * sizeof(char *));
 	if (!new_env)
 		return (NULL);
 	i = 0;
-	while (environ[i])
+	while (mini_env[i])
 	{
-		new_env[i] = environ[i];
+		new_env[i] = mini_env[i];
 		i++;
 	}
-	new_env[i] = var;
+	new_env[i] = ft_strdup(var);
 	new_env[i + 1] = NULL;
-	return (ft_free_split(environ), new_env);
+	return (ft_free_split(mini_env), new_env);
 }
 
 void    ft_export(char **vars)
 {
 	int	i;
 
-	//free(vars[0]);
 	i = 1;
 	while (vars[i])
 	{
-		environ = add_to_env(vars[i]);
+		add_to_env(vars[i]);
 		i++;
 	}
 	return ;
