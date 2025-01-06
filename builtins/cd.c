@@ -3,19 +3,120 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:27:38 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/05 16:43:52 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/06 19:15:45 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+void	replace_value(char *var, char *value, int i)
+{
+	int		j;
+	char	**new_env;
+
+	j = 0;
+	while (mini_env[j])
+		j++;
+	new_env = malloc((j + 1) * sizeof(char *));
+	if (!new_env)
+		return ;
+	j = 0;
+	while (mini_env[j])
+	{
+		if (j != i)
+			new_env[j] = ft_strdup(mini_env[j]);
+		else
+			new_env[j] = ft_strjoin(var, value);
+		j++;
+	}
+	new_env[j] = NULL;
+	ft_free_split(mini_env);
+	mini_env = new_env;
+}
+
+void	actualise_env(char *oldpwd)
+{
+	int		i;
+	char	buff[50];
+
+	i = 0;
+	while (mini_env[i])
+	{
+		if (ft_strncmp(mini_env[i], "OLDPWD", ft_strlen("OLDPWD")) == 0
+				&& mini_env[i][ft_strlen("OLDPWD")] == '=')
+			replace_value("OLDPWD=", oldpwd, i);
+		i++;
+	}
+	i = 0;
+	while (mini_env[i])
+	{
+		if (ft_strncmp(mini_env[i], "PWD", ft_strlen("PWD")) == 0
+				&& mini_env[i][ft_strlen("PWD")] == '=')
+			replace_value("PWD=", getcwd(buff, 50), i);
+		i++;
+	}
+	return ;
+}
+
+char	**get_home_path()
+{
+	int		i;
+	char	**temp;
+
+	i = 0;
+	while (mini_env[i])
+	{
+		if (ft_strncmp(mini_env[i], "HOME=", 5) == 0)
+		{
+			temp = ft_split(mini_env[i], '=');
+			return (temp);
+		}
+		i++;
+	}
+	return (NULL);
+}
+
+void	go_to_desktop_and_more(char **command)
+{
+	char	**home;
+	char	*cmd;
+	char	*final_cmd;
+
+	home = NULL;
+	cmd = NULL;
+	final_cmd = NULL;
+	home = get_home_path();
+	if (home == NULL)
+		ft_putstr_fd("HOME not set\n", 2);
+	else if (command[1])
+	{
+		cmd = ft_substr(command[1], 1, ft_strlen(command[1]));
+		final_cmd = ft_strjoin(home[1], cmd);
+		chdir(final_cmd);
+	}
+	else
+		chdir(home[1]);
+	free(final_cmd);
+	free(cmd);
+	ft_free_split(home);
+	return ;
+}
+
 void	ft_cd(char **command)
 {
-	if (!command[1])
-		ft_putstr_fd("cd: bad arguments\n", 2);
+	char	buff[50];
+	char	*old_pwd;
+
+	old_pwd = getcwd(buff, 50);
+	if (!command[1] || command[1][0] == '~')
+		go_to_desktop_and_more(command);
 	else if (chdir(command[1]) == -1)
+	{
 		perror(command[1]);
+		return ;
+	}
+	actualise_env(old_pwd);
 }
