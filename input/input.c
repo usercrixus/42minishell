@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 12:56:35 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 18:33:16 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,24 @@ int	manage_line(char *line)
 {
 	int				commands_size;
 	t_command_data	commands_data;
+	int				pid;
+	int				stat_loc;
 
 	g_command_running = 1;
 	if (!set_data(&commands_data, line))
 		return (0);
 	commands_size = get_command_array_size(commands_data.commands_array);
 	if (commands_size == 1 && execute_parent_commands(&commands_data))
+	{
+		export_errno(execute_parent_commands(&commands_data));
 		return (1);
-	launch_pipe_series(&commands_data, commands_size);
+	}
+	pid = launch_pipe_series(&commands_data, commands_size);
 	while (commands_size-- > 0)
-		waitpid(-1, NULL, 0);
+	{
+		if (waitpid(-1, &stat_loc, 0) == pid && WIFEXITED(stat_loc))
+			export_errno(WEXITSTATUS(stat_loc));
+	}
 	free(commands_data.input_array);
 	free(commands_data.output_array);
 	destroy_commands_array(commands_data.commands_array);
