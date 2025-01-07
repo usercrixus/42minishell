@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 01:20:48 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 17:39:42 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 18:36:54 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	execute_child(char **command)
 	else if (execve(command[0], command, mini_env) == -1)
 	{
 		perror(command[0]);
-		printf("Code: %d\n", errno);
 		ft_free_split(command);
 		return (0);
 	}

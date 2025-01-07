@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 17:10:09 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/07 17:48:01 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 18:43:37 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,31 @@ void	add_to_env(char *var)
 	return ;
 }
 
-// int	is_valid(char *arg)
-// {
-	
-// }
+int	is_valid(char *arg)
+{
+	char	*temp;
+	char	*ptr;
+
+	temp = ft_strchr(arg, '=');
+	if (!temp)
+		return (0);
+	if (temp == arg || *(temp - 1) == ' ')
+		return (printf("export: '%s': not a valid identifier\n", arg), 0);
+	if (!(arg[0] == '_' || (arg[0] >= 'a' && arg[0] <= 'z')
+			|| (arg[0] >= 'A' && arg[0] <= 'Z')))
+		return (0);
+	ptr = arg;
+	while (ptr < temp)
+	{
+		if (!((*ptr >= 'a' && *ptr <= 'z')
+				|| (*ptr >= 'A' && *ptr <= 'Z')
+				|| (*ptr >= '0' && *ptr <= '9')
+				|| (*ptr == '_')))
+			return (0);
+		ptr++;
+	}
+	return (1);
+}
 
 void    ft_export(char **vars)
 {
@@ -77,7 +98,7 @@ void    ft_export(char **vars)
 	i = 1;
 	while (vars[i])
 	{
-		// if (is_valid(vars[i]))
+		if (is_valid(vars[i]))
 			add_to_env(vars[i]);
 		i++;
 	}
