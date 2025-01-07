@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 01:20:48 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 17:39:42 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 18:41:51 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,13 @@ int	execute_child(char **command)
 	{
 		if (!builtin_integration(command))
 			return (ft_putstr_fd(command[0], 2),
-				ft_putstr_fd(": command not found\n", 2), 0);
+				ft_putstr_fd(": command not found\n", 2), 127);
 	}
 	else if (execve(command[0], command, mini_env) == -1)
 	{
 		perror(command[0]);
-		printf("Code: %d\n", errno);
 		ft_free_split(command);
-		return (0);
+		return (errno);
 	}
-	return (1);
+	return (0);
 }
