@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 17:10:09 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/06 19:15:40 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 11:26:46 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,15 @@
 // 	return (ft_free_split(mini_env), new_env);
 // }
 
-// void    ft_export(char **vars)
-// {
-// 	int	i;
+void    ft_export(char **vars)
+{
+	int	i;
 
-// 	i = 1;
-// 	while (vars[i])
-// 	{
-// 		add_to_env(vars[i]);
-// 		i++;
-// 	}
-// 	return ;
-// }
+	i = 1;
+	while (vars[i])
+	{
+		// add_to_env(vars[i]);
+		i++;
+	}
+	return ;
+}

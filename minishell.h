@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/06 16:36:13 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 11:28:26 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_command_data
 extern char						**mini_env;
 extern volatile sig_atomic_t	g_command_running;
 
-void	export(char **vars);
+char	*ft_get_env(const char *var_name);
 /**
  * launch a series of command separated by a pipe.
  * Typicaly, split on pipe '|' character

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reconstruct_quote.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:37:10 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/05 02:19:07 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/07 11:24:59 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*get_env_var(char *s, char terminator)
 	var_name = ft_str_get_char_array(str, str->size);
 	if (!var_name)
 		return (ft_str_free(str), (char *)0);
-	var_value = getenv(var_name);
+	var_value = ft_get_env(var_name);
 	free(var_name);
 	ft_str_free(str);
 	return (var_value);

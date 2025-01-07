@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 20:59:01 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/05 01:30:47 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/07 11:25:14 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,24 @@ void	shift(char **command, int size)
 		command[i] = 0;
 		i++;
 	}
+}
+
+char	*ft_get_env(const char *var_name)
+{
+	int		i;
+	char	*var_value;
+
+	i = 0;
+	while (mini_env[i])
+	{
+		if (ft_strncmp(var_name, mini_env[i], ft_strlen(var_name)) == 0 && \
+		mini_env[i][ft_strlen(var_name)] == '=')
+		{
+			var_value = ft_substr(mini_env[i], ft_strlen(var_name) + 1, \
+			ft_strlen(mini_env[i]) - ft_strlen(var_name) - 1);
+			return (var_value);
+		}
+		i++;
+	}
+	return (NULL);
 }
