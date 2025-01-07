@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 01:20:48 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 21:20:15 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/07 21:50:51 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,13 @@ int	execute_child(char **command)
 	}
 	if (command[0] != command_buffer)
 		free(command_buffer);
-	fflush(stdout);
 	if (access(command[0], F_OK) == -1)
 	{
-		fflush(stdout);
 		if (!builtin_integration(command))
 			return (ft_putstr_fd(command[0], 2),
 				ft_putstr_fd(": command not found\n", 2), 127);
 	}
 	else if (execve(command[0], command, mini_env) == -1)
-	{
-		perror(command[0]);
-		ft_free_split(command);
-		return (errno);
-	}
+		return (perror(command[0]), ft_free_split(command), errno);
 	return (0);
 }

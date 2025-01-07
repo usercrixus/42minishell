@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 19:08:11 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 23:22:15 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	set_data(t_command_data	*commands_data, char *line)
 
 int	execute_parent_commands(t_command_data	*commands_data)
 {
-	if (ft_strncmp(commands_data->commands_array[0][0], "exit", 5) == 0)
-		exit(0);
 	if (ft_strncmp(commands_data->commands_array[0][0], "env", 4) == 0)
 		return (ft_env(commands_data->commands_array[0]), 1);
 	if (ft_strncmp(commands_data->commands_array[0][0], "export", 7) == 0)
@@ -76,12 +74,12 @@ int	input_loop(void)
 {
 	char	*line;
 
-	setup_signals();
 	while (1)
 	{
 		g_command_running = 0;
 		line = readline("\033[1;32mminishell@chodel: \033[0m");
-		if (!line)
+		if (!line || ((ft_strncmp("exit", line, 5) == 0
+			|| ft_strncmp("exit ", line, 6) == 0) && !ft_strchr(line, '|')))
 			return (1);
 		if (*line)
 		{
