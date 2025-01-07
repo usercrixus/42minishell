@@ -6,13 +6,13 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 21:57:59 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 11:27:02 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 12:53:46 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int builtin_integration(char **command)
+int	builtin_integration(char **command)
 {
 	if (ft_strncmp(command[0], "exit", ft_strlen("exit") + 1) == 0)
 		exit(0);

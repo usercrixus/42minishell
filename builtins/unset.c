@@ -6,13 +6,13 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:56:44 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/06 17:17:04 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 12:54:43 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	delete_var(int	i)
+void	delete_var(int i)
 {
 	int		j;
 	char	**new_env;
@@ -51,7 +51,7 @@ void	ft_unset(char **command)
 		while (mini_env[i])
 		{
 			if (ft_strncmp(mini_env[i], command[j], ft_strlen(command[j])) == 0
-					&& mini_env[i][ft_strlen(command[j])] == '=')
+				&& mini_env[i][ft_strlen(command[j])] == '=')
 			{
 				delete_var(i);
 				break ;

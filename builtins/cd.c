@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:27:38 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/06 19:15:45 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 12:54:19 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	actualise_env(char *oldpwd)
 	while (mini_env[i])
 	{
 		if (ft_strncmp(mini_env[i], "OLDPWD", ft_strlen("OLDPWD")) == 0
-				&& mini_env[i][ft_strlen("OLDPWD")] == '=')
+			&& mini_env[i][ft_strlen("OLDPWD")] == '=')
 			replace_value("OLDPWD=", oldpwd, i);
 		i++;
 	}
@@ -54,14 +54,14 @@ void	actualise_env(char *oldpwd)
 	while (mini_env[i])
 	{
 		if (ft_strncmp(mini_env[i], "PWD", ft_strlen("PWD")) == 0
-				&& mini_env[i][ft_strlen("PWD")] == '=')
+			&& mini_env[i][ft_strlen("PWD")] == '=')
 			replace_value("PWD=", getcwd(buff, 50), i);
 		i++;
 	}
 	return ;
 }
 
-char	**get_home_path()
+char	**get_home_path(void)
 {
 	int		i;
 	char	**temp;

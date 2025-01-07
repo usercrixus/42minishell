@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/07 11:28:26 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 12:53:31 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ int		set_start(char const *s, char *is_active, int *i, char c);
  * command : the command to launch
  */
 int		builtin_integration(char **command);
-void	ft_pwd();
+void	ft_pwd(void);
 void	ft_cd(char **command);
 void	ft_echo(char **command);
 void	ft_unset(char **command);

@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 11:26:35 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 12:56:35 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	execute_parent_commands(t_command_data	*commands_data)
 		return (ft_unset(commands_data->commands_array[0]), 1);
 	if (ft_strncmp(commands_data->commands_array[0][0], "cd", 3) == 0)
 		return (ft_cd(commands_data->commands_array[0]), 1);
-
 	return (0);
 }
 

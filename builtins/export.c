@@ -6,48 +6,65 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 17:10:09 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/07 11:26:46 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 12:33:32 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// char	**add_to_env(char *var)
-// {
-// 	char	**new_env;
-// 	int		size;
-// 	int		i;
-// /*	char 	*key;
+int	replace_if_exist(char *arg)
+{
+	int		i;
+	char 	*key;
 	
-//     key = ft_substr(var, 0, ft_strchr(var, '=') - var);
-//     if (!key)
-//         return (NULL);
-//     i = 0;
-//     while (environ[i])
-//     {
-//         if (!ft_strncmp(environ[i], key, ft_strlen(key)) && environ[i][ft_strlen(key)] == '=')
-//         {
-//             free(environ[i]);
-//             environ[i] = ft_strdup(var);
-//             free(key);
-//             return (environ);
-//         }
-//         i++;
-//     }
-//     free(key);*/
-// 	size = ft_split_size(mini_env);
-// 	new_env = malloc((size + 2) * sizeof(char *));
-// 	if (!new_env)
-// 		return (NULL);
-// 	i = 0;
-// 	while (mini_env[i])
-// 	{
-// 		new_env[i] = mini_env[i];
-// 		i++;
-// 	}
-// 	new_env[i] = ft_strdup(var);
-// 	new_env[i + 1] = NULL;
-// 	return (ft_free_split(mini_env), new_env);
+    key = ft_substr(arg, 0, ft_strchr(arg, '=') - arg);
+    if (!key)
+        return (1);
+    i = 0;
+    while (mini_env[i])
+    {
+        if (!ft_strncmp(mini_env[i], key, ft_strlen(key)) && mini_env[i][ft_strlen(key)] == '=')
+        {
+			free(mini_env[i]);
+            mini_env[i] = ft_strdup(arg);
+            free(key);
+            return (1);
+        }
+        i++;
+    }
+    free(key);
+	return (0);
+}
+
+void	add_to_env(char *var)	
+{
+	char	**new_env;
+	int		size;
+	int		i;
+
+	if (replace_if_exist(var))
+		return ;
+	size = ft_split_size(mini_env);
+	new_env = malloc((size + 2) * sizeof(char *));
+	if (!new_env)
+		return ;
+	i = 0;
+	while (mini_env[i + 1])
+	{
+		new_env[i] = ft_strdup(mini_env[i]);
+		i++;
+	}
+	new_env[i] = ft_strdup(var);
+	new_env[i + 1] = ft_strdup(mini_env[i]);
+	new_env[i + 2] = NULL;
+	ft_free_split(mini_env);
+	mini_env = new_env;
+	return ;
+}
+
+// int	is_valid(char *arg)
+// {
+	
 // }
 
 void    ft_export(char **vars)
@@ -57,7 +74,8 @@ void    ft_export(char **vars)
 	i = 1;
 	while (vars[i])
 	{
-		// add_to_env(vars[i]);
+		// if (is_valid(vars[i]))
+			add_to_env(vars[i]);
 		i++;
 	}
 	return ;
