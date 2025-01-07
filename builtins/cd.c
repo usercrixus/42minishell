@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:27:38 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 12:54:19 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 14:12:23 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	replace_value(char *var, char *value, int i)
 	char	**new_env;
 
 	j = 0;
+	if (!value)
+		return ;
 	while (mini_env[j])
 		j++;
 	new_env = malloc((j + 1) * sizeof(char *));
@@ -79,7 +81,7 @@ char	**get_home_path(void)
 	return (NULL);
 }
 
-void	go_to_desktop_and_more(char **command)
+void	go_to_desktop_and_more(char **command, char *old_pwd)
 {
 	char	**home;
 	char	*cmd;
@@ -91,7 +93,7 @@ void	go_to_desktop_and_more(char **command)
 	home = get_home_path();
 	if (home == NULL)
 		ft_putstr_fd("HOME not set\n", 2);
-	else if (command[1])
+	else if (command[1] && old_pwd)
 	{
 		cmd = ft_substr(command[1], 1, ft_strlen(command[1]));
 		final_cmd = ft_strjoin(home[1], cmd);
@@ -111,8 +113,8 @@ void	ft_cd(char **command)
 	char	*old_pwd;
 
 	old_pwd = getcwd(buff, 50);
-	if (!command[1] || command[1][0] == '~')
-		go_to_desktop_and_more(command);
+	if (!command[1] || command[1][0] == '~' || !old_pwd)
+		go_to_desktop_and_more(command, old_pwd);
 	else if (chdir(command[1]) == -1)
 	{
 		perror(command[1]);
