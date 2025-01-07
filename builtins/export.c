@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 17:10:09 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/07 18:48:37 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 19:09:04 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	replace_if_exist(char *arg)
 {
 	int		i;
-	char 	*key;
+	char	*key;
 
 	key = ft_substr(arg, 0, ft_strchr(arg, '=') - arg);
 	if (!key)
@@ -23,14 +23,15 @@ int	replace_if_exist(char *arg)
 	i = 0;
 	while (mini_env[i])
 	{
-		if (!ft_strncmp(mini_env[i], key, ft_strlen(key)) && mini_env[i][ft_strlen(key)] == '=')
+		if (!ft_strncmp(mini_env[i], key, ft_strlen(key))
+			&& mini_env[i][ft_strlen(key)] == '=')
 		{
 			free(mini_env[i]);
 			mini_env[i] = ft_strdup(arg);
 			free(key);
 			return (1);
 		}
-        i++;
+		i++;
 	}
 	free(key);
 	return (0);

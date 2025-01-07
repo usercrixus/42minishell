@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:02:50 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 17:32:16 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 19:08:42 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include <sys/prctl.h>
 #include <sys/syscall.h>
 
-volatile sig_atomic_t g_command_running = 0;
-char	**mini_env = NULL;
+volatile sig_atomic_t	g_command_running = 0;
+char					**mini_env = NULL;
 
 void	init_mini_env(char **envp)
 {
