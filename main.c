@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:02:50 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 12:53:09 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 17:32:16 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ void	init_mini_env(char **envp)
 	i = 0;
 	while (envp[i])
 		i++;
-	mini_env = malloc((i + 1) * sizeof(char *));
-	i = 0;
+	mini_env = malloc((i + 2) * sizeof(char *));
+	mini_env[0] = ft_strdup("?=0");
+	i = 1;
 	while (envp[i])
 	{
 		mini_env[i] = ft_strdup(envp[i]);

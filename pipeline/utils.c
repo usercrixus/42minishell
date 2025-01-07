@@ -6,11 +6,18 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 01:20:48 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 12:34:07 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 17:39:42 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	export_errno(int code_error)
+{
+	free(mini_env[0]);
+	mini_env[0] = ft_strjoin("?=", ft_itoa(code_error));
+	return ;
+}
 
 void	close_fds(int *fds, int size)
 {
@@ -47,6 +54,7 @@ int	execute_child(char **command)
 	else if (execve(command[0], command, mini_env) == -1)
 	{
 		perror(command[0]);
+		printf("Code: %d\n", errno);
 		ft_free_split(command);
 		return (0);
 	}

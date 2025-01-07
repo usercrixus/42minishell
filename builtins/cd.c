@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:27:38 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 14:12:23 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 17:31:10 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	replace_value(char *var, char *value, int i)
 	new_env = malloc((j + 1) * sizeof(char *));
 	if (!new_env)
 		return ;
-	j = 0;
+	j = 1;
 	while (mini_env[j])
 	{
 		if (j != i)
@@ -44,7 +44,7 @@ void	actualise_env(char *oldpwd)
 	int		i;
 	char	buff[50];
 
-	i = 0;
+	i = 1;
 	while (mini_env[i])
 	{
 		if (ft_strncmp(mini_env[i], "OLDPWD", ft_strlen("OLDPWD")) == 0
@@ -52,7 +52,7 @@ void	actualise_env(char *oldpwd)
 			replace_value("OLDPWD=", oldpwd, i);
 		i++;
 	}
-	i = 0;
+	i = 1;
 	while (mini_env[i])
 	{
 		if (ft_strncmp(mini_env[i], "PWD", ft_strlen("PWD")) == 0
@@ -68,7 +68,7 @@ char	**get_home_path(void)
 	int		i;
 	char	**temp;
 
-	i = 0;
+	i = 1;
 	while (mini_env[i])
 	{
 		if (ft_strncmp(mini_env[i], "HOME=", 5) == 0)

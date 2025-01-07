@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:56:44 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 12:54:43 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 17:29:41 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	delete_var(int i)
 	new_env = malloc(j * sizeof(char *));
 	if (!new_env)
 		return ;
-	j = 0;
+	j = 1;
 	while (mini_env[j])
 	{
 		if (j < i)
@@ -47,7 +47,7 @@ void	ft_unset(char **command)
 	j = 1;
 	while (command[j])
 	{
-		i = 0;
+		i = 1;
 		while (mini_env[i])
 		{
 			if (ft_strncmp(mini_env[i], command[j], ft_strlen(command[j])) == 0
