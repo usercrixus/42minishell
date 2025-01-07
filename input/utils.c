@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 20:59:01 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 16:32:02 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 21:25:26 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	shift(char **command, int size)
 char	*ft_get_env(const char *var_name)
 {
 	int		i;
-	char	*var_value;
 
 	i = 0;
 	while (mini_env[i])
@@ -53,9 +52,7 @@ char	*ft_get_env(const char *var_name)
 		if (ft_strncmp(var_name, mini_env[i], ft_strlen(var_name)) == 0 && \
 		mini_env[i][ft_strlen(var_name)] == '=')
 		{
-			var_value = ft_substr(mini_env[i], ft_strlen(var_name) + 1, \
-			ft_strlen(mini_env[i]) - ft_strlen(var_name) - 1);
-			return (var_value);
+			return (mini_env[i] + ft_strlen(var_name) + 1);
 		}
 		i++;
 	}

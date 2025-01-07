@@ -3,14 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:54:45 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 12:56:59 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 21:46:56 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	is_flag_error(char c, char *charset)
+{
+	int	i;
+
+	i = 0;
+	while (charset[i])
+	{
+		if (charset[i] != c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	flag(char **command)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (command[i][0] == '-' && strlen(command[i]) > 1)
+	{
+		j = 1;
+		while (command[i][j])
+		{
+			if (is_flag_error(command[i][j], "n"))
+				return (i);
+			j++;
+		}
+		i++;
+	}
+	return (i);
+}
 
 void	ft_echo(char **command)
 {
@@ -18,15 +52,13 @@ void	ft_echo(char **command)
 	int	i;
 
 	n_option = 0;
-	i = 1;
-	while (command[i] && ft_strncmp(command[i], "-n", 3) == 0)
-	{
-		n_option = 1;
-		i++;
-	}
+	i = flag(command);
+	n_option = i - 1;
 	while (command[i])
 	{
 		printf("%s", command[i]);
+		if (command[i + 1])
+			printf(" ");
 		i++;
 	}
 	if (!n_option)

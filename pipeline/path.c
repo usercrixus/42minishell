@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:21:01 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 11:25:05 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/07 21:29:25 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,12 @@
 char	**get_path(void)
 {
 	char	**paths;
+	char	*env_path;
 
-	paths = ft_split(ft_get_env("PATH"), ':');
+	env_path = ft_get_env("PATH");
+	if (!env_path)
+		return (0);
+	paths = ft_split(env_path, ':');
 	if (!paths)
 		return (0);
 	return (paths);
