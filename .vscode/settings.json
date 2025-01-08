@@ -10,7 +10,8 @@
         "minishell.h": "c",
         "stat.h": "c",
         "readline.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "limits": "c"
     },
     "files.exclude": {
         "**/*.o": true

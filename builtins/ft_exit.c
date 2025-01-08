@@ -3,20 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 12:15:54 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/08 13:03:16 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/09 00:05:52 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_exit(void)
+void	ft_exit(int status)
 {
 	ft_free_split(mini_env);
-	mini_env = NULL;
 	rl_clear_history();
-	exit(0);
-	return ;
+	exit(status);
 }

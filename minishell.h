@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/08 12:23:32 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/09 00:16:30 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct s_command_data
 extern char						**mini_env;
 extern volatile sig_atomic_t	g_command_running;
 
-void	ft_exit(void);
 void	export_errno(int code_error);
 char	*ft_get_env(const char *var_name);
 /**
@@ -124,6 +123,11 @@ int		set_pipe_array(t_command_data *commands_data);
  */
 void	destroy_commands_array(char ***commands_array);
 /**
+ * destroy all what is in t_command_data data structure
+ * commands_data : the data structure to destroy
+ */
+void	detroy_all(t_command_data *commands_data);
+/**
  * commands_array : the pointer commands_array
  * return : the size of the command array
  */
@@ -150,13 +154,15 @@ int		set_start(char const *s, char *is_active, int *i, char c);
  * Try to launch a command corresponding to command[0]
  * command : the command to launch
  */
-int		builtin_integration(char **command);
+int		builtin_child_executer(char **command);
 void	ft_pwd(void);
 void	ft_cd(char **command);
 void	ft_echo(char **command);
 void	ft_unset(char **command);
 void	ft_env(char **command);
 void	ft_export(char **command);
+void	ft_exit(int status);
+int		builtin_main_executer(t_command_data	*commands_data);
 
 void	setup_signals(void);
 
