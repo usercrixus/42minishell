@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 01:20:48 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/08 03:10:11 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/08 13:18:06 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 void	export_errno(int code_error)
 {
-	free(mini_env[0]);
-	mini_env[0] = ft_strjoin("?=", ft_itoa(code_error));
+	char	*buff;
+
+	buff = ft_itoa(code_error);
+	if (mini_env[0])
+		free(mini_env[0]);
+	mini_env[0] = ft_strjoin("?=", buff);
+	free(buff);
 	return ;
 }
 

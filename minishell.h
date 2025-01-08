@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/07 17:39:53 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/08 12:23:32 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_command_data
 extern char						**mini_env;
 extern volatile sig_atomic_t	g_command_running;
 
+void	ft_exit(void);
 void	export_errno(int code_error);
 char	*ft_get_env(const char *var_name);
 /**

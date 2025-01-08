@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:27:38 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 17:31:10 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/08 13:27:41 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	replace_value(char *var, char *value, int i)
 	new_env = malloc((j + 1) * sizeof(char *));
 	if (!new_env)
 		return ;
-	j = 1;
+	j = 0;
 	while (mini_env[j])
 	{
 		if (j != i)

@@ -26,6 +26,7 @@ OBJS = \
 		builtins/pwd.o \
 		builtins/unset.o \
 		builtins/builtin_integration.o \
+		builtins/ft_exit.o \
 
 all: submodule 42libft.a minishell
 

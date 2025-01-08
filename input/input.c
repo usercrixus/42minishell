@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/08 03:14:02 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/08 13:10:10 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	input_loop(void)
 		if (!line || ((ft_strncmp("exit", line, 5) == 0
 					|| ft_strncmp("exit ", line, 6) == 0)
 				&& !ft_strchr(line, '|')))
-			return (1);
+			return (ft_exit(), 1);
 		if (*line)
 		{
 			add_history(line);

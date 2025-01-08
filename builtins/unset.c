@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:56:44 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 17:29:41 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/08 13:39:17 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@ void	delete_var(int i)
 {
 	int		j;
 	char	**new_env;
+	char	*stock_errno;
 
-	j = 0;
-	while (mini_env[j])
-		j++;
+	j = ft_split_size(mini_env);
+	stock_errno = ft_strdup(mini_env[0]);
 	new_env = malloc(j * sizeof(char *));
+	new_env[0] = stock_errno;
 	if (!new_env)
 		return ;
 	j = 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_integration.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 21:57:59 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 21:13:57 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:25:06 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	builtin_integration(char **command)
 {
 	if (ft_strncmp(command[0], "exit", ft_strlen("exit") + 1) == 0)
-		exit(0);
+		ft_exit();
 	else if (ft_strncmp(command[0], "cd", ft_strlen("cd") + 1) == 0)
 		return (ft_cd(command), 1);
 	else if (ft_strncmp(command[0], "pwd", ft_strlen("pwd") + 1) == 0)
