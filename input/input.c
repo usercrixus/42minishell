@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 23:22:15 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/08 03:14:02 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,12 @@ int	manage_line(char *line)
 	{
 		errno_code = execute_parent_commands(&commands_data);
 		if (errno_code != -1)
+		{
+			free(commands_data.input_array);
+			free(commands_data.output_array);
+			destroy_commands_array(commands_data.commands_array);
 			return (export_errno(errno_code), 1);
+		}
 	}
 	pid = launch_pipe_series(&commands_data, commands_size);
 	while (commands_size-- > 0)
@@ -79,7 +84,8 @@ int	input_loop(void)
 		g_command_running = 0;
 		line = readline("\033[1;32mminishell@chodel: \033[0m");
 		if (!line || ((ft_strncmp("exit", line, 5) == 0
-			|| ft_strncmp("exit ", line, 6) == 0) && !ft_strchr(line, '|')))
+					|| ft_strncmp("exit ", line, 6) == 0)
+				&& !ft_strchr(line, '|')))
 			return (1);
 		if (*line)
 		{
