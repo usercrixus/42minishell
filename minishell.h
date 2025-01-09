@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/09 01:00:00 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/09 04:02:09 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,15 @@ typedef struct s_command_data
 	int		*input_array;
 	int		*output_array;
 }	t_command_data;
+
+typedef enum e_status
+{
+	NONE,
+	SUCCESS,
+	EXIT,
+	MEMORY_ERROR,
+	SYNTAX_ERROR
+} t_status;
 
 extern char						**mini_env;
 extern volatile sig_atomic_t	g_command_running;
@@ -68,8 +77,7 @@ void	close_fds(int *fds, int size);
  */
 char	*get_pathed_command(char *command);
 /**
- * check if there is a syntax error in the command
- * return : 1 if a syntax error is found, 0 if not
+ * 
  */
 int		is_syntax_error(char *command);
 /**
@@ -126,7 +134,7 @@ void	destroy_commands_array(char ***commands_array);
  * destroy all what is in t_command_data data structure
  * commands_data : the data structure to destroy
  */
-void	detroy_all(t_command_data *commands_data);
+void	destroy_all(t_command_data *commands_data);
 /**
  * commands_array : the pointer commands_array
  * return : the size of the command array

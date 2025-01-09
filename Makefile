@@ -14,6 +14,7 @@ OBJS = \
 		input/special_split_helper.o \
 		input/reconstruct_quote_helper.o \
 		input/pipe_array.o \
+		input/verify_syntax.o \
 		pipeline/path.o \
 		pipeline/pipeline.o \
 		pipeline/utils.o \

@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 14:31:30 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/03 20:33:20 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/09 02:54:14 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	destroy_commands_array(char ***commands_array)
 		i++;
 	}
 	free(commands_array);
+	commands_array = 0;
 }
 
 char	***get_commands_array(char *line)

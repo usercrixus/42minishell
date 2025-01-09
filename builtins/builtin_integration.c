@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 21:57:59 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/09 00:21:24 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/09 02:25:12 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ int	builtin_main_executer(t_command_data *commands_data)
 	if (ft_strncmp(commands_data->commands_array[0][0], "cd", 3) == 0)
 		return (ft_cd(commands_data->commands_array[0]), 0);
 	if (ft_strncmp(commands_data->commands_array[0][0], "exit", 5) == 0)
-		return (-2);
+		return (-1);
 	return (127);
 }
