@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_integration.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 21:57:59 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/09 02:25:12 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:45:58 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ int	builtin_child_executer(char **command)
 	if (ft_strncmp(command[0], "exit", ft_strlen("exit") + 1) == 0)
 		return (0);
 	else if (ft_strncmp(command[0], "cd", ft_strlen("cd") + 1) == 0)
-		return (ft_cd(command), 0);
+		return (ft_cd(command));
 	else if (ft_strncmp(command[0], "pwd", ft_strlen("pwd") + 1) == 0)
-		return (ft_pwd(), 0);
+		return (ft_pwd());
 	else if (ft_strncmp(command[0], "export", ft_strlen("export") + 1) == 0)
-		return (ft_export(command), 0);
+		return (ft_export(command));
 	else if (ft_strncmp(command[0], "echo", ft_strlen("echo") + 1) == 0)
-		return (ft_echo(command), 0);
+		return (ft_echo(command));
 	else if (ft_strncmp(command[0], "unset", ft_strlen("unset") + 1) == 0)
-		return (ft_unset(command), 0);
+		return (ft_unset(command));
 	else if (ft_strncmp(command[0], "env", ft_strlen("env") + 1) == 0)
-		return (ft_env(command), 0);
+		return (ft_env(command));
 	return (127);
 }
 

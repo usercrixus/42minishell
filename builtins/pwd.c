@@ -6,15 +6,16 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:30:18 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 18:53:41 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/09 18:41:33 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_pwd(void)
+int	ft_pwd(void)
 {
 	char	buff[50];
 
 	printf("%s\n", getcwd(buff, 50));
+	return (0);
 }

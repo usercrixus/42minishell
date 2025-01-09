@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/09 04:02:09 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:45:13 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,12 +163,12 @@ int		set_start(char const *s, char *is_active, int *i, char c);
  * command : the command to launch
  */
 int		builtin_child_executer(char **command);
-void	ft_pwd(void);
-void	ft_cd(char **command);
-void	ft_echo(char **command);
-void	ft_unset(char **command);
-void	ft_env(char **command);
-void	ft_export(char **command);
+int		ft_pwd(void);
+int		ft_cd(char **command);
+int		ft_echo(char **command);
+int		ft_unset(char **command);
+int		ft_env(char **command);
+int		ft_export(char **command);
 void	ft_exit(int status);
 int		builtin_main_executer(t_command_data	*commands_data);
 

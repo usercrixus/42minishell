@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 17:10:09 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/07 19:09:04 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/09 18:39:18 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,16 +92,20 @@ int	is_valid(char *arg)
 	return (1);
 }
 
-void	ft_export(char **vars)
+int	ft_export(char **vars)
 {
 	int	i;
+	int	return_value;
 
 	i = 1;
+	return_value = 0;
 	while (vars[i])
 	{
 		if (is_valid(vars[i]))
 			add_to_env(vars[i]);
+		else
+			return_value = 1;
 		i++;
 	}
-	return ;
+	return (return_value);
 }

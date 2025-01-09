@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:56:44 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/08 13:39:17 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/09 18:44:19 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ void	delete_var(int i)
 	return ;
 }
 
-void	ft_unset(char **command)
+int	ft_unset(char **command)
 {
 	int	i;
 	int	j;
+	int	return_value;
 
-	(void)command;
+	return_value = 0;
 	j = 1;
 	while (command[j])
 	{
@@ -57,9 +58,11 @@ void	ft_unset(char **command)
 				delete_var(i);
 				break ;
 			}
+			else
+				return_value = 1;
 			i++;
 		}
 		j++;
 	}
-	return ;
+	return (return_value);
 }
