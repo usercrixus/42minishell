@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:37:10 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/09 16:09:42 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:21:54 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,18 @@ char	*get_env_var(char *s, char terminator)
 
 	str = ft_str_create();
 	i = 0;
-	while (s[i] && s[i] != ' ' && s[i] != '=' && s[i] != terminator)
+	if (s[i] == '*' || s[i] == '@')
 		i++;
+	else if (ft_isdigit(s[i]))
+	{
+		while (s[i] && ft_isdigit(s[i]) && s[i] != terminator)
+			i++;
+	}
+	else
+	{
+		while (s[i] && ft_isalnum(s[i]) && s[i] != terminator)
+			i++;
+	}
 	if (!ft_str_push(str, s, i))
 		return (0);
 	var_name = ft_str_get_char_array(str, str->size);
@@ -57,14 +67,25 @@ int	push_buffer(char *command, char quote, t_str *buffer, int *j)
 	if (quote != '\'' && command[*j] == '$')
 	{
 		(*j)++;
+		while (command[*j] == '=')
+			(*j)++;
 		env_var = get_env_var(&command[*j], quote);
 		if (!env_var)
 			env_var = "";
 		if (!ft_str_push(buffer, env_var, ft_strlen(env_var)))
 			return (0);
-		while (command[*j] && command[*j] != '='
-			&& command[*j] != ' ' && command[*j] != quote)
+		if (command[*j] == '*' || command[*j] == '@')
 			(*j)++;
+		else if (ft_isdigit(command[*j]))
+		{
+			while (command[*j] && ft_isdigit(command[*j]))
+				(*j)++;
+		}
+		else
+		{
+			while (command[*j] && ft_isalnum(command[*j]) && command[*j] != quote)
+				(*j)++;
+		}
 	}
 	else
 	{
