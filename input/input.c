@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/09 00:24:28 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/09 01:29:03 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int	set_data(t_command_data	*commands_data, char *line)
 {
 	commands_data->commands_array = get_commands_array(line);
 	if (!commands_data->commands_array
-		|| !reconstruct_quote(commands_data->commands_array))
+		|| !commands_data->commands_array[0]
+		|| !reconstruct_quote(commands_data->commands_array)
+		|| !commands_data->commands_array[0][0])
 		return (0);
 	commands_data->input_array = get_input_array(commands_data->commands_array);
 	commands_data->output_array
@@ -63,7 +65,18 @@ int	manage_line(char *line)
 	return (detroy_all(&commands_data), 1);
 }
 
-int	input_loop(void)
+char	*clean_line(char *line)
+{
+	char	*line_trimmed;
+
+	line_trimmed = ft_strtrim(line, " ");
+	if (!line_trimmed)
+		return (0);
+	free(line);
+	return (line_trimmed);
+}
+
+void	input_loop(void)
 {
 	char	*line;
 	int		status;
@@ -74,16 +87,16 @@ int	input_loop(void)
 		g_command_running = 0;
 		line = readline("\033[1;32mminishell@chodel: \033[0m");
 		if (!line)
-			return (ft_exit(0), 1);
-		if (*line)
+			ft_exit(0);
+		line = clean_line(line);
+		if (line && line[0])
 		{
 			add_history(line);
 			status = manage_line(line);
 			if (!status)
-				ft_putstr_fd("Error during the parsing", 2);
+				ft_putstr_fd("Error during the parsing\n", 2);
 		}
 		free(line);
 	}
 	ft_exit(0);
-	return (1);
 }

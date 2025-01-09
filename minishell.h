@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/09 00:16:30 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/09 01:00:00 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int		*get_output_array(char ***commands_array);
  * 
  * return : 0 for error.
  */
-int		input_loop(void);
+void	input_loop(void);
 /**
  * create a file with the content set by the stdinput open by heredoc
  * 

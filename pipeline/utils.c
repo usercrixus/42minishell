@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 01:20:48 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/09 00:04:32 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/09 01:26:24 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	execute_child(char **command)
 	if (!command[0])
 	{
 		ft_putstr_fd("Null command detected\n", 2);
-		return (ft_free_split(command), -1);
+		return (-1);
 	}
 	if (command[0] != command_buffer)
 		free(command_buffer);
@@ -62,6 +62,6 @@ int	execute_child(char **command)
 		return (errno_value);
 	}
 	else if (execve(command[0], command, mini_env) == -1)
-		return (perror(command[0]), ft_free_split(command), errno);
+		return (perror(command[0]), errno);
 	return (0);
 }
