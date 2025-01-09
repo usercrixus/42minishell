@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 20:59:01 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/07 21:25:26 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/09 01:36:34 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ int	is_syntax_error(char *command)
 	else if (ft_strncmp(command, "<<", 3) == 0)
 		return (1);
 	else if (ft_strncmp(command, "<", 2) == 0)
+		return (1);
+	else if (ft_strncmp(command, ">>", 3) == 0)
+		return (1);
+	else if (ft_strncmp(command, ">", 2) == 0)
 		return (1);
 	return (0);
 }
