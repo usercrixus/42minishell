@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:37:10 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/09 17:21:54 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:22:46 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,30 @@ int	get_char_occurence(char *str, char c)
 int	push_buffer(char *command, char quote, t_str *buffer, int *j)
 {
 	char	*env_var;
+	char	*command_pathed;
 
-	if (quote != '\'' && command[*j] == '$')
+	if (quote != '\'' && command[*j] == '=')
+	{
+		(*j)++;
+		command_pathed = get_pathed_command(&command[*j]);
+		if (!command_pathed)
+			return (0);
+		if (access(command_pathed, F_OK) == -1)
+		{
+			if (!ft_str_push(buffer, command_pathed, ft_strlen(command_pathed)))
+				return (0);
+			if (!ft_str_push(buffer, " not found", ft_strlen(" not found")))
+				return (0);
+		}
+		else
+			if (!ft_str_push(buffer, command_pathed, ft_strlen(command_pathed)))
+				return (0);
+		while (command[*j])
+			(*j)++;
+		// if (command_pathed != &command[*j])
+		// 	free(command_pathed);
+	}
+	else if (quote != '\'' && command[*j] == '$')
 	{
 		(*j)++;
 		while (command[*j] == '=')

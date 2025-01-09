@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 01:52:48 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/09 15:51:46 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:47:51 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	pipe_syntax_helper(char *command)
 		ft_putstr_fd("syntax error near unexpected token 'newline'\n", 2);
 		return (1);
 	}
+	else if (ft_strncmp(command, "||", 2) == 0)
+		return (ft_putstr_fd("syntax error near unexpected token '||'\n", 2), 1);
 	else if (ft_strncmp(command, "|", 1) == 0)
 		return (ft_putstr_fd("syntax error near unexpected token '|'\n", 2), 1);
 	return (0);
