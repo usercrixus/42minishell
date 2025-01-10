@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/09 04:02:09 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/10 01:53:16 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,8 @@ int		get_command_array_size(char ***commands_array);
 int		reconstruct_quote(char ***commands);
 void	reset_quote(char *quote, int *j);
 void	set_quote(char *quote, int *j, char c);
-int		set_command(char **commands, t_str *buffer, int i);
+int		set_command(char **commands, t_str **buffer, int i);
+int		get_char_occurence(char *str, char c);
 /**
  * Split the command, but deactivate the split when a quote (single or double)
  * is found

@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 20:53:40 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/04 20:58:45 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/10 01:55:37 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,33 @@ void	set_quote(char *quote, int *j, char c)
 	(*j)++;
 }
 
-int	set_command(char **commands, t_str *buffer, int i)
+int	set_command(char **commands, t_str **buffer, int i)
 {
+	if (!(*buffer))
+	{
+		shift(&commands[i], 1);
+		return (*buffer = 0, 1);
+	}
 	free(commands[i]);
-	commands[i] = ft_str_get_char_array(buffer, buffer->size);
+	commands[i] = ft_str_get_char_array(*buffer, (*buffer)->size);
 	if (!commands[i])
-		return (ft_str_free(buffer), 0);
-	ft_str_free(buffer);
-	return (1);
+		return (ft_str_free(*buffer), *buffer = 0, 0);
+	ft_str_free(*buffer);
+	return (*buffer = 0, 1);
+}
+
+int	get_char_occurence(char *str, char c)
+{
+	int	result;
+	int	i;
+
+	result = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			result++;
+		i++;
+	}
+	return (result);
 }

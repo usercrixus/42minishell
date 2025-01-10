@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 20:59:01 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/09 01:54:20 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/09 23:25:14 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	shift(char **command, int size)
 	}
 	while (command[i])
 	{
-		command[i - 2] = command[i];
+		command[i - size] = command[i];
 		command[i] = 0;
 		i++;
 	}

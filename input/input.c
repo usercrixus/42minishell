@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/09 04:25:59 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/10 02:11:50 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,9 @@ int	set_data(t_command_data	*commands_data, char *line)
 	if (is_syntax_error(line))
 		return (SYNTAX_ERROR);
 	commands_data->commands_array = get_commands_array(line);
-	if (!commands_data->commands_array
-		|| !commands_data->commands_array[0])
+	if (!commands_data->commands_array)
 		return (MEMORY_ERROR);
-	if (!reconstruct_quote(commands_data->commands_array)
-		|| !commands_data->commands_array[0][0])
+	if (!reconstruct_quote(commands_data->commands_array))
 		return (MEMORY_ERROR);
 	commands_data->input_array = get_input_array(commands_data->commands_array);
 	commands_data->output_array
@@ -62,8 +60,6 @@ int	manage_line(char *line)
 	status_code = set_data(&commands_data, line);
 	if (status_code == MEMORY_ERROR || status_code == SYNTAX_ERROR)
 		return (destroy_all(&commands_data), status_code);
-	if (!commands_data.commands_array[0][0])
-		return (SUCCESS);
 	commands_size = get_command_array_size(commands_data.commands_array);
 	if (commands_size == 1)
 	{
