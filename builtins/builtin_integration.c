@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 21:57:59 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/10 11:56:33 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/10 13:55:06 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	builtin_main_executer(t_command_data *commands_data)
 		return (ft_unset(commands_data->commands_array[0]));
 	if (ft_strncmp(commands_data->commands_array[0][0], "cd", 3) == 0)
 		return (ft_cd(commands_data->commands_array[0]));
+	if (ft_strncmp(commands_data->commands_array[0][0], "pwd", 4) == 0)
+		return (ft_pwd());
 	if (ft_strncmp(commands_data->commands_array[0][0], "exit", 5) == 0)
 		return (-1);
 	return (127);

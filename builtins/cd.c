@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:27:38 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/10 11:54:16 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/10 13:50:19 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,14 @@ int	ft_cd(char **command)
 	char	*old_pwd;
 
 	old_pwd = getcwd(buff, 50);
-	if (!command[1] || command[1][0] == '~' || !old_pwd)
+	if (!command[1] || command[1][0] == '~')
 		go_to_desktop_and_more(command, old_pwd);
+	else if (!old_pwd)
+	{
+		printf("chdir: error retrieving current directory: getcwd:");
+		printf(" cannot access parent directories: No such file or directory\n");
+		chdir(command[1]);
+	}
 	else if (chdir(command[1]) == -1)
 	{
 		perror(command[1]);

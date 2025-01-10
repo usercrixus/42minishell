@@ -1,0 +1,7 @@
+{
+   i_love_readline
+   Memcheck:Leak
+   ...
+   obj:*/lib*/libreadline.so*
+}
+
