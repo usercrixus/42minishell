@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:27:38 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/10 13:50:19 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/10 15:17:30 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,23 @@ void	replace_value(char *var, char *value, int i)
 	j = 0;
 	if (!value)
 		return ;
-	while (mini_env[j])
+	while (g_mini_env[j])
 		j++;
 	new_env = malloc((j + 1) * sizeof(char *));
 	if (!new_env)
 		return ;
 	j = 0;
-	while (mini_env[j])
+	while (g_mini_env[j])
 	{
 		if (j != i)
-			new_env[j] = ft_strdup(mini_env[j]);
+			new_env[j] = ft_strdup(g_mini_env[j]);
 		else
 			new_env[j] = ft_strjoin(var, value);
 		j++;
 	}
 	new_env[j] = NULL;
-	ft_free_split(mini_env);
-	mini_env = new_env;
+	ft_free_split(g_mini_env);
+	g_mini_env = new_env;
 }
 
 void	actualise_env(char *oldpwd)
@@ -45,18 +45,18 @@ void	actualise_env(char *oldpwd)
 	char	buff[50];
 
 	i = 1;
-	while (mini_env[i])
+	while (g_mini_env[i])
 	{
-		if (ft_strncmp(mini_env[i], "OLDPWD", ft_strlen("OLDPWD")) == 0
-			&& mini_env[i][ft_strlen("OLDPWD")] == '=')
+		if (ft_strncmp(g_mini_env[i], "OLDPWD", ft_strlen("OLDPWD")) == 0
+			&& g_mini_env[i][ft_strlen("OLDPWD")] == '=')
 			replace_value("OLDPWD=", oldpwd, i);
 		i++;
 	}
 	i = 1;
-	while (mini_env[i])
+	while (g_mini_env[i])
 	{
-		if (ft_strncmp(mini_env[i], "PWD", ft_strlen("PWD")) == 0
-			&& mini_env[i][ft_strlen("PWD")] == '=')
+		if (ft_strncmp(g_mini_env[i], "PWD", ft_strlen("PWD")) == 0
+			&& g_mini_env[i][ft_strlen("PWD")] == '=')
 			replace_value("PWD=", getcwd(buff, 50), i);
 		i++;
 	}
@@ -69,11 +69,11 @@ char	**get_home_path(void)
 	char	**temp;
 
 	i = 1;
-	while (mini_env[i])
+	while (g_mini_env[i])
 	{
-		if (ft_strncmp(mini_env[i], "HOME=", 5) == 0)
+		if (ft_strncmp(g_mini_env[i], "HOME=", 5) == 0)
 		{
-			temp = ft_split(mini_env[i], '=');
+			temp = ft_split(g_mini_env[i], '=');
 			return (temp);
 		}
 		i++;

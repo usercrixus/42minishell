@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 01:20:48 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/09 01:26:24 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:15:25 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	export_errno(int code_error)
 	char	*buff;
 
 	buff = ft_itoa(code_error);
-	if (mini_env[0])
-		free(mini_env[0]);
-	mini_env[0] = ft_strjoin("?=", buff);
+	if (g_mini_env[0])
+		free(g_mini_env[0]);
+	g_mini_env[0] = ft_strjoin("?=", buff);
 	free(buff);
 	return ;
 }
@@ -61,7 +61,7 @@ int	execute_child(char **command)
 		}
 		return (errno_value);
 	}
-	else if (execve(command[0], command, mini_env) == -1)
+	else if (execve(command[0], command, g_mini_env) == -1)
 		return (perror(command[0]), errno);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 12:15:54 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/09 00:05:52 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:16:29 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_exit(int status)
 {
-	ft_free_split(mini_env);
+	ft_free_split(g_mini_env);
 	rl_clear_history();
 	exit(status);
 }

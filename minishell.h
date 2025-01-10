@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/10 11:55:00 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/10 15:19:47 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ typedef enum e_status
 	EXIT,
 	MEMORY_ERROR,
 	SYNTAX_ERROR
-} t_status;
+}	t_status;
 
-extern char						**mini_env;
+extern char						**g_mini_env;
 extern volatile sig_atomic_t	g_command_running;
 
 void	export_errno(int code_error);

@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:57:51 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/10 11:55:22 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/10 15:17:02 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	ft_env(char **command)
 
 	(void)command;
 	i = 1;
-	while (mini_env[i])
+	while (g_mini_env[i])
 	{
-		printf("%s\n", mini_env[i]);
+		printf("%s\n", g_mini_env[i]);
 		i++;
 	}
 	return (0);
