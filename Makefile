@@ -58,4 +58,4 @@ fclean: clean
 
 re: clean fclean all
 
-.PHONY: all clean fclean re 
+.PHONY: clean fclean re 
