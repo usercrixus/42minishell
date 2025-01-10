@@ -15,6 +15,7 @@ OBJS = \
 		input/reconstruct_quote_helper.o \
 		input/pipe_array.o \
 		input/verify_syntax.o \
+		input/reconstruct_space.o \
 		pipeline/path.o \
 		pipeline/pipeline.o \
 		pipeline/utils.o \

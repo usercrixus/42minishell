@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 14:31:30 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/10 03:33:31 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/10 05:45:01 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,71 +34,6 @@ void	destroy_commands_array(char ***commands_array)
 	}
 	free(commands_array);
 	commands_array = 0;
-}
-
-int	reconstruct_space_helper(char **commands_string, int i, t_str *buffer)
-{
-	int		j;
-	char	quote;
-
-	quote = 0;
-	j = 0;
-	while (commands_string[i][j])
-	{
-		if (commands_string[i][j] == '\'' || commands_string[i][j] == '"')
-		{
-			if (!quote)
-				quote = commands_string[i][j];
-			else if (quote == commands_string[i][j])
-				quote = 0;
-			j++;
-		}
-		else if (!quote && ft_strncmp(&commands_string[i][j], "<<", 2) == 0)
-		{
-			if (!ft_str_push(buffer, " << ", ft_strlen(" << ")))
-				return (0);
-			j += 2;
-		}
-		else if (!quote && ft_strncmp(&commands_string[i][j], "<", 1) == 0)
-		{
-			if (!ft_str_push(buffer, " < ", ft_strlen(" < ")))
-				return (0);
-			j++;
-		}
-		else if (!quote && ft_strncmp(&commands_string[i][j], ">>", 2) == 0)
-		{
-			if (!ft_str_push(buffer, " >> ", ft_strlen(" >> ")))
-				return (0);
-			j += 2;
-		}
-		else if (!quote && ft_strncmp(&commands_string[i][j], ">", 1) == 0)
-		{
-			if (!ft_str_push(buffer, " > ", ft_strlen(" > ")))
-				return (0);
-			j++;
-		}
-		else if (!ft_str_push(buffer, &commands_string[i][j++], 1))
-			return (0);
-	}
-	return (1);
-}
-
-int	reconstruct_space(char **commands_string)
-{
-	int		i;
-	t_str	*buffer;
-
-	i = 0;
-	while (commands_string[i])
-	{
-		buffer = ft_str_create();
-		reconstruct_space_helper(commands_string, i, buffer);
-		free(commands_string[i]);
-		commands_string[i] = ft_str_get_char_array(buffer, buffer->size);
-		ft_str_free(buffer);
-		i++;
-	}
-	return (1);
 }
 
 char	***get_commands_array(char *line)

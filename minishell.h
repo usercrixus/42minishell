@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/10 01:53:16 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/10 05:44:07 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,10 @@ int		get_char_occurence(char *str, char c);
 char	**special_split(char const *s, char c);
 void	set_end(char const *s, char *is_active, int *i, char c);
 int		set_start(char const *s, char *is_active, int *i, char c);
+/**
+ * 
+ */
+int		reconstruct_space(char **commands_string);
 /**
  * Try to launch a command corresponding to command[0]
  * command : the command to launch
