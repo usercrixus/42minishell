@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:27:38 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/08 13:27:41 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/10 11:54:16 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	go_to_desktop_and_more(char **command, char *old_pwd)
 	return ;
 }
 
-void	ft_cd(char **command)
+int	ft_cd(char **command)
 {
 	char	buff[50];
 	char	*old_pwd;
@@ -118,7 +118,8 @@ void	ft_cd(char **command)
 	else if (chdir(command[1]) == -1)
 	{
 		perror(command[1]);
-		return ;
+		return (1);
 	}
 	actualise_env(old_pwd);
+	return (0);
 }
