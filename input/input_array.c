@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 19:00:13 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/10 03:41:47 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/10 04:33:15 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	*get_input_array(char ***commands_array)
 	{
 		if (!set_input(commands_array[i], &input_array[i]))
 			return (free(input_array), (int *)0);
+		if (!commands_array[i][0])
+			commands_array[i][0] = ft_strdup("true");
 		i++;
 	}
 	return (input_array);
