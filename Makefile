@@ -1,4 +1,8 @@
+NAME = minishell
+
 MAKEFLAGS += --no-print-directory
+
+LIBFT_LIB = 42libft.a
 
 OBJS = \
 		main.o \
@@ -6,7 +10,6 @@ OBJS = \
 		input/commands_array.o \
 		input/here_doc.o \
 		input/input_array.o \
-		input/input.o \
 		input/output_array.o \
 		input/utils.o \
 		input/special_split.o \
@@ -30,18 +33,17 @@ OBJS = \
 		builtins/builtin_integration.o \
 		builtins/ft_exit.o \
 
-all: submodule 42libft.a minishell
+all: $(LIBFT_LIB) $(NAME)
 
-minishell: $(OBJS)
+$(NAME): $(OBJS)
+	@echo "\nCOMPILING MINISHELL...\n"
 	cc $^ -g3 42libft/ft_base/libft.a 42libft/ft_str/libftstr.a -lreadline -o $@
+	@echo "\033[1;32m./minishell created\n"
 
 %.o: %.c
 	cc -c $< -Wall -Wextra -Werror -g3 -o $@
 
-submodule:
-	git submodule update --init --recursive
-
-42libft.a:
+$(LIBFT_LIB):
 	make -C ./42libft all
 
 clean:
@@ -49,9 +51,11 @@ clean:
 	make -C ./42libft clean
 
 fclean: clean
-	rm -f minishell
 	make -C ./42libft fclean
+	@echo "\033[0;31mDeleting minishell executable..."
+	rm -f minishell
+	@echo "\033[0;31mDone."
 
 re: clean fclean all
 
-.PHONY: clean fclean re 42libft.a 
+.PHONY: all clean fclean re 
