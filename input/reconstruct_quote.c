@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:37:10 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/10 01:59:01 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 03:40:51 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	push_buffer(char *command, char quote, t_str **buffer, int *j)
 			if (!initialize_buffer(buffer))
 				return (0);
 			if (!ft_str_push(*buffer, env_var, ft_strlen(env_var)))
-				return (0);
+				return (ft_str_free(*buffer), 0);
 		}
 		while (command[*j] && command[*j] != '$'
 			&& command[*j] != ' ' && command[*j] != quote)
@@ -68,7 +68,7 @@ int	push_buffer(char *command, char quote, t_str **buffer, int *j)
 		if (!initialize_buffer(buffer))
 			return (0);
 		if (!ft_str_push(*buffer, &command[*j], 1))
-			return (0);
+			return (ft_str_free(*buffer), 0);
 		(*j)++;
 	}
 	return (1);
@@ -113,7 +113,11 @@ int	reconstruct_quote(char ***commands)
 		if (!manage_reconstruct_quote(commands[i], 0, 0))
 			return (0);
 		if (!commands[i][0])
+		{
 			commands[i][0] = ft_strdup("true");
+			if (!commands[i][0])
+				return (0);
+		}
 		i++;
 	}
 	return (1);

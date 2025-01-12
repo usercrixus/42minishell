@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 19:00:13 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/10 04:33:53 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 04:18:03 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	set_output(char **commands_array, int *fd_output)
 				flags = O_CREAT | O_WRONLY | O_APPEND;
 			*fd_output = open(commands_array[i + 1], flags, S_IRUSR | S_IWUSR);
 			if (*fd_output == -1)
-				return (0);
+				return (perror("output open error:"), 0);
 			shift(commands_array + i, 2);
 		}
 		else
@@ -55,7 +55,11 @@ int	*get_output_array(char ***commands_array)
 		if (!set_output(commands_array[i], &output_array[i]))
 			return (free(output_array), (int *)0);
 		if (!commands_array[i][0])
+		{
 			commands_array[i][0] = ft_strdup("true");
+			if (!commands_array[i][0])
+				return (free(output_array), (int *)0);
+		}
 		i++;
 	}
 	return (output_array);

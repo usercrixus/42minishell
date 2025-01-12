@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 14:31:30 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/10 05:45:01 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 04:18:06 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,20 @@ char	***get_commands_array(char *line)
 	if (!commands_string)
 		return (0);
 	if (!reconstruct_space(commands_string))
-		return (0);
+		return (ft_free_split(commands_string), (char ***)0);
 	split_size = ft_split_size(commands_string);
-	commands_array = (char ***)malloc(sizeof(char ***) * (split_size + 1));
+	commands_array = (char ***)ft_calloc(sizeof(char ***), split_size + 1);
 	if (!commands_array)
-		return (0);
+		return (ft_free_split(commands_string), (char ***)0);
 	i = 0;
 	while (i < split_size)
 	{
 		commands_array[i] = special_split(commands_string[i], ' ');
 		if (!commands_array[i])
-			return (0);
+			return (ft_free_split(commands_string),
+				destroy_commands_array(commands_array), (char ***)0);
 		i++;
 	}
 	commands_array[i] = 0;
-	ft_free_split(commands_string);
-	return (commands_array);
+	return (ft_free_split(commands_string), commands_array);
 }

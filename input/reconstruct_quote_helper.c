@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 20:53:40 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/10 01:55:37 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 03:37:44 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	set_command(char **commands, t_str **buffer, int i)
 	free(commands[i]);
 	commands[i] = ft_str_get_char_array(*buffer, (*buffer)->size);
 	if (!commands[i])
-		return (ft_str_free(*buffer), *buffer = 0, 0);
+		return (ft_str_free(*buffer), 0);
 	ft_str_free(*buffer);
 	return (*buffer = 0, 1);
 }

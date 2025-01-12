@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 22:27:35 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/09 04:44:45 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 03:18:29 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	set_here_doc(char *delimiter)
 		return (ft_str_free(str), 0);
 	buff = ft_str_get_char_array(str, str->size - str->start);
 	if (!buff)
-		return (0);
+		return (ft_str_free(str), 0);
 	tmp_file = open("here_doc", O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR);
 	if (!tmp_file)
 		return (free(buff), ft_str_free(str), 0);
@@ -66,6 +66,6 @@ int	get_here_doc(char *delimiter)
 			return (perror("Failed to open /dev/null"), 0);
 	}
 	if (unlink("here_doc") == -1)
-		return (close(fd_in), 0);
+		return (perror("heredoc unlink error:"), close(fd_in), 0);
 	return (fd_in);
 }
