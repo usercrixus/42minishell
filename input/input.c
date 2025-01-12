@@ -6,94 +6,93 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/12 06:20:23 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 20:35:32 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	set_data(t_command_data	*commands_data, char *line)
+void	destroy_all(t_command_data *cmds_data)
 {
-	commands_data->commands_array = 0;
-	commands_data->input_array = 0;
-	commands_data->output_array = 0;
-	if (is_syntax_error(line))
-		return (SYNTAX_ERROR);
-	if (!reconstruct_space(line))
-		return (MEMORY_ERROR);
-	commands_data->commands_array = get_commands_array(line);
-	if (!commands_data->commands_array)
-		return (MEMORY_ERROR);
-	if (!reconstruct_quote(commands_data->commands_array))
-		return (MEMORY_ERROR);
-	commands_data->input_array = get_input_array(commands_data->commands_array);
-	commands_data->output_array
-		= get_output_array(commands_data->commands_array);
-	if (!commands_data->input_array || !commands_data->output_array)
-		return (MEMORY_ERROR);
-	if (!set_pipe_array(commands_data))
-		return (MEMORY_ERROR);
-	return (SUCCESS);
+	if (cmds_data->input_array != 0)
+	{
+		free(cmds_data->input_array);
+		cmds_data->input_array = 0;
+	}
+	if (cmds_data->output_array != 0)
+	{
+		free(cmds_data->output_array);
+		cmds_data->output_array = 0;
+	}
+	if (cmds_data->commands_array != 0)
+		destroy_commands_array(cmds_data->commands_array);
 }
 
-void	destroy_all(t_command_data *commands_data)
+int	launch_line(t_command_data *cmds_data)
 {
-	if (commands_data->input_array != 0)
-	{
-		free(commands_data->input_array);
-		commands_data->input_array = 0;
-	}
-	if (commands_data->output_array != 0)
-	{
-		free(commands_data->output_array);
-		commands_data->output_array = 0;
-	}
-	if (commands_data->commands_array != 0)
-		destroy_commands_array(commands_data->commands_array);
-}
+	int	cmds_size;
+	int	status_code;
 
-int	manage_line(char *line)
-{
-	int				commands_size;
-	t_command_data	commands_data;
-	int				status_code;
-
-	g_command_running = 1;
-	status_code = set_data(&commands_data, line);
-	if (status_code == MEMORY_ERROR || status_code == SYNTAX_ERROR)
-		return (destroy_all(&commands_data), status_code);
-	commands_size = get_command_array_size(commands_data.commands_array);
-	if (commands_size == 1)
+	cmds_size = get_triple_array_size(cmds_data->commands_array);
+	if (cmds_size == 1)
 	{
-		status_code = builtin_main_executer(&commands_data);
+		status_code = builtin_main_executer(cmds_data);
 		if (status_code != 127)
 		{
-			destroy_all(&commands_data);
 			export_errno(status_code);
 			if (status_code == -1)
 				return (EXIT);
 			return (SUCCESS);
 		}
 	}
-	launch_pipe_series(&commands_data, commands_size);
-	return (destroy_all(&commands_data), SUCCESS);
+	if (!launch_pipe_series(cmds_data, cmds_size))
+		return (MEMORY_ERROR);
+	return (NONE);
 }
 
-char	*clean_line(char *line)
+int	set_data(t_command_data	*cmds_data, char *line)
 {
-	char	*line_trimmed;
-
-	line_trimmed = ft_strtrim(line, " ");
-	if (!line_trimmed)
+	char	*spaced_line;
+	
+	spaced_line = get_reconstruct_space(line);
+	if (!spaced_line)
 		return (0);
-	free(line);
-	return (line_trimmed);
+	cmds_data->commands_array = get_commands_array(spaced_line);
+	free(spaced_line);
+	if (!cmds_data->commands_array)
+		return (0);
+	if (!reconstruct_env_var(cmds_data->commands_array))
+		return (0);
+	if (!reconstruct_quote(cmds_data->commands_array))
+		return (0);
+	cmds_data->input_array = get_input_array(cmds_data->commands_array);
+	cmds_data->output_array = get_output_array(cmds_data->commands_array);
+	if (!cmds_data->input_array || !cmds_data->output_array)
+		return (0);
+	if (!set_pipe_array(cmds_data))
+		return (0);
+	return (1);
+}
+
+enum e_status	manage_line(char *line)
+{
+	t_command_data	cmds_data;
+	enum e_status	status_code;
+
+	cmds_data.commands_array = 0;
+	cmds_data.input_array = 0;
+	cmds_data.output_array = 0;
+	status_code = set_data(&cmds_data, line);
+	if (status_code == 0)
+		return (destroy_all(&cmds_data), MEMORY_ERROR);
+	status_code = launch_line(&cmds_data);
+	return (destroy_all(&cmds_data), status_code);
 }
 
 void	input_loop(void)
 {
-	char	*line;
-	char	status;
+	char			*line;
+	enum e_status	status;
 
 	status = NONE;
 	while (status != EXIT)
@@ -102,13 +101,16 @@ void	input_loop(void)
 		line = readline("\033[1;32mminishell@chodel: \033[0m");
 		if (!line)
 			ft_exit(0);
-		line = clean_line(line);
-		if (line && line[0])
+		if (line && get_char_occurence(line, ' ') != ft_strlen(line))
 		{
 			add_history(line);
-			status = manage_line(line);
-			if (status == MEMORY_ERROR)
-				ft_putstr_fd("Error during the parsing\n", 2);
+			if (!is_syntax_error(line))
+			{
+				g_command_running = 1;
+				status = manage_line(line);
+				if (status == MEMORY_ERROR)
+					ft_putstr_fd("Error during the parsing\n", 2);
+			}
 		}
 		free(line);
 	}

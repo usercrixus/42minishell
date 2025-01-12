@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 22:27:35 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/12 03:18:29 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 10:08:56 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,30 @@
 int	build_here_doc(t_str *str, char *delimiter)
 {
 	char	*line;
+	t_str	*buffer;
 
+	buffer = 0;
 	line = readline(">");
 	while (line && ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1) != 0)
 	{
-		if (!ft_str_push(str, line, ft_strlen(line)))
-			return (0);
+		if (!reconstruct_arg_env_var(line, &buffer))
+			return (free(line), 0);
 		free(line);
-		if (!ft_str_push(str, "\n", 1))
-			return (0);
+		if (buffer)
+		{
+			line = ft_str_get_char_array(buffer, buffer->size);
+			if (!line)
+				return (free(line), ft_str_free(buffer), 0);
+			if (!ft_str_push(str, line, ft_strlen(line))
+				|| !ft_str_push(str, "\n", 1))
+				return (free(line), ft_str_free(buffer), 0);
+			free(line);
+			ft_str_free(buffer);
+			buffer = 0;
+		}
 		line = readline(">");
 	}
-	free(line);
-	return (1);
+	return (free(line), 1);
 }
 
 int	set_here_doc(char *delimiter)

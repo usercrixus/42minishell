@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:10:26 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/05 16:22:43 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 20:35:32 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	set_pipe_array(t_command_data *commands_data)
 	int	size;
 	int	i;
 
-	size = get_command_array_size(commands_data->commands_array);
+	size = get_triple_array_size(commands_data->commands_array);
 	i = 1;
 	while (i < size)
 	{

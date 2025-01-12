@@ -15,10 +15,11 @@ OBJS = \
 		input/special_split.o \
 		input/reconstruct_quote.o \
 		input/special_split_helper.o \
-		input/reconstruct_quote_helper.o \
 		input/pipe_array.o \
 		input/verify_syntax.o \
 		input/reconstruct_space.o \
+		input/reconstruct_env_var.o \
+		input/reconstruct_utils.o \
 		pipeline/path.o \
 		pipeline/pipeline.o \
 		pipeline/utils.o \

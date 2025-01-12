@@ -6,21 +6,9 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 14:31:30 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/12 06:19:55 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 20:35:44 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../minishell.h"
-
-int	get_command_array_size(char ***commands_array)
-{
-	int	i;
-
-	i = 0;
-	while (commands_array[i])
-		i++;
-	return (i);
-}
 
 void	destroy_commands_array(char ***commands_array)
 {

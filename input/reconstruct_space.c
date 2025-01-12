@@ -6,20 +6,11 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 05:43:07 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/12 06:24:13 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 20:38:05 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	set_reconstruct_quote(char *quote, char c)
-{
-	if (!*quote)
-		*quote = c;
-	else if (*quote == c)
-		*quote = 0;
-	return (1);
-}
 
 void	set_value(char quote, char *commands_string, char **value)
 {
@@ -45,8 +36,11 @@ int	reconstruct_space_helper(char *commands_string, t_str *buffer)
 	i = 0;
 	while (commands_string[i])
 	{
-		if (commands_string[i] == '\'' || commands_string[i] == '"')
-			set_reconstruct_quote(&quote, commands_string[i]);
+		if (set_quote(&quote, commands_string))
+		{
+			if (!ft_str_push(buffer, &commands_string[i++], 1))
+				return (0);
+		}
 		else
 		{
 			set_value(quote, &commands_string[i], &value);
@@ -56,26 +50,26 @@ int	reconstruct_space_helper(char *commands_string, t_str *buffer)
 					return (0);
 				i += ft_strlen(value) - 2;
 			}
+			else if (!ft_str_push(buffer, &commands_string[i++], 1))
+				return (0);
 		}
-		if (!value && !ft_str_push(buffer, &commands_string[i++], 1))
-			return (0);
 	}
 	return (1);
 }
 
-int	reconstruct_space(char *line)
+char	*get_reconstruct_space(char *commands_string)
 {
 	t_str	*buffer;
+	char	*result;
 
 	buffer = ft_str_create();
-	if(!buffer)
+	if (!buffer)
 		return (0);
 	if (!reconstruct_space_helper(commands_string, buffer))
-		return (ft_str_free(buffer), 0);
-	free(commands_string);
-	commands_string = ft_str_get_char_array(buffer, buffer->size);
-	if (!commands_string)
-		return (ft_str_free(buffer), 0);
+		return (ft_str_free(buffer), NULL);
+	result = ft_str_get_char_array(buffer, buffer->size);
+	if (!result)
+		return (ft_str_free(buffer), NULL);
 	ft_str_free(buffer);
-	return (1);
+	return (result);
 }

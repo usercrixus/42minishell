@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/12 06:24:39 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 20:35:32 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ typedef enum e_status
 	NONE,
 	SUCCESS,
 	EXIT,
-	MEMORY_ERROR,
-	SYNTAX_ERROR
+	MEMORY_ERROR
 }	t_status;
 
 extern char						**g_mini_env;
@@ -81,8 +80,8 @@ char	*get_pathed_command(char *command);
  */
 int		is_syntax_error(char *command);
 /**
- * shift (on the left) by 2 an array of char* (char **), freeing
- * the first 2 elements.
+ * shift (on the left) by size an array of char* (char **), freeing
+ * the first size elements.
  * command : the command to shift
  * len : the size of shift
  */
@@ -139,16 +138,21 @@ void	destroy_all(t_command_data *commands_data);
  * commands_array : the pointer commands_array
  * return : the size of the command array
  */
-int		get_command_array_size(char ***commands_array);
+int		get_triple_array_size(char ***commands_array);
 /**
- * manage the quote of the command, interpreting with double quote and
- * not with single quote.
- * commands : the command to reconstruct
+ * Add space before and after keyword
+ * << >> < > easily can add some
+ * commands_string : the commands_string to format
  */
+char	*get_reconstruct_space(char *commands_string);
+int		reconstruct_arg_env_var(char *commands, t_str **buffer);
 int		reconstruct_quote(char ***commands);
-void	reset_quote(char *quote, int *j);
-void	set_quote(char *quote, int *j, char c);
-int		set_command(char **commands, t_str **buffer, int i);
+int		reconstruct_env_var(char ***commands);
+int		set_command_arg(char **commands, t_str *buffer, int i);
+int		set_quote(char *quote, char *s);
+int		push_char(t_str **buffer, char *command);
+int		initialize_buffer(t_str **buffer);
+int		set_command_arg(char **commands, t_str *buffer, int i);
 int		get_char_occurence(char *str, char c);
 /**
  * Split the command, but deactivate the split when a quote (single or double)
@@ -159,12 +163,6 @@ int		get_char_occurence(char *str, char c);
 char	**special_split(char const *s, char c);
 void	set_end(char const *s, char *is_active, int *i, char c);
 int		set_start(char const *s, char *is_active, int *i, char c);
-/**
- * Add space before and after keyword
- * << >> < > easily can add some
- * commands_string : the commands_string to format
- */
-int		reconstruct_space(char *commands_string);
 /**
  * Try to launch a command corresponding to command[0]
  * command : the command to launch

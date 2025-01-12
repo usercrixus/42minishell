@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:56:03 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/09 03:16:11 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 20:35:32 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ int	launch_pipe_series(t_command_data *command_data, int max)
 	{
 		pid = fork();
 		if (pid == -1)
-			return (0);
+			return (perror("Error launching pipe: "), 0);
 		else if (pid == 0)
 			manage_child(command_data, i, max);
 		i++;
 	}
 	close_fds(command_data->input_array, max);
 	close_fds(command_data->output_array, max);
-	command_size = get_command_array_size(command_data->commands_array);
+	command_size = get_triple_array_size(command_data->commands_array);
 	while (command_size-- > 0)
 	{
 		if (waitpid(-1, &stat_loc, 0) == pid && WIFEXITED(stat_loc))

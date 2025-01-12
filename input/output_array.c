@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 19:00:13 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/12 04:18:03 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 20:35:32 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	*get_output_array(char ***commands_array)
 	int	i;
 
 	output_array = ft_calloc(
-			get_command_array_size(commands_array) + 1, sizeof(int));
+			get_triple_array_size(commands_array) + 1, sizeof(int));
 	if (!output_array)
 		return (0);
 	i = 0;
