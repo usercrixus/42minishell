@@ -11,10 +11,8 @@ OBJS = \
 		input/here_doc.o \
 		input/input_array.o \
 		input/output_array.o \
-		input/utils.o \
 		input/special_split.o \
 		input/reconstruct_quote.o \
-		input/special_split_helper.o \
 		input/pipe_array.o \
 		input/verify_syntax.o \
 		input/reconstruct_space.o \
@@ -22,7 +20,6 @@ OBJS = \
 		input/reconstruct_utils.o \
 		pipeline/path.o \
 		pipeline/pipeline.o \
-		pipeline/utils.o \
 		signals/signals.o \
 		builtins/export.o \
 		builtins/pwd.o \
@@ -33,6 +30,7 @@ OBJS = \
 		builtins/unset.o \
 		builtins/builtin_integration.o \
 		builtins/ft_exit.o \
+		utils.o \
 
 all: $(LIBFT_LIB) $(NAME)
 

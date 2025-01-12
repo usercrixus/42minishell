@@ -6,38 +6,46 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:37:10 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/12 09:32:28 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 21:11:01 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	manage_reconstruct_quote(char **commands)
+int	manage_reconstruct_quote_arg(char *commands, t_str **buffer)
 {
 	int		i;
-	int		j;
-	t_str	*buffer;
 	char	quote;
 
-	buffer = 0;
 	quote = 0;
 	i = 0;
 	while (commands[i])
 	{
-		j = 0;
-		while (commands[i][j])
+		if (set_quote(&quote, &commands[i]))
 		{
-			if (set_quote(&quote, &commands[i][j]))
-			{
-				if (!initialize_buffer(&buffer))
-					return (0);
-				j++;
-			}
-			else if (!push_char(&buffer, &commands[i][j++]))
+			if (!initialize_buffer(buffer))
 				return (0);
 		}
-		if (!set_command_arg(commands, buffer, i++))
+		else if (!push_char(buffer, &commands[i]))
 			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	manage_reconstruct_quote_cmd(char **commands)
+{
+	t_str	*buffer;
+	int		i;
+
+	buffer = 0;
+	i = 0;
+	while (commands[i])
+	{
+		manage_reconstruct_quote_arg(commands[i], &buffer);
+		if (!set_command_arg(commands, buffer, i))
+			return (0);
+		i++;
 		buffer = 0;
 	}
 	return (1);
@@ -50,7 +58,7 @@ int	reconstruct_quote(char ***commands)
 	i = 0;
 	while (commands[i])
 	{
-		if (!manage_reconstruct_quote(commands[i]))
+		if (!manage_reconstruct_quote_cmd(commands[i]))
 			return (0);
 		if (!commands[i][0])
 		{

@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/12 20:35:32 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 21:28:29 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	launch_line(t_command_data *cmds_data)
 	cmds_size = get_triple_array_size(cmds_data->commands_array);
 	if (cmds_size == 1)
 	{
-		status_code = builtin_main_executer(cmds_data);
+		status_code = builtin_main_executer(cmds_data->commands_array[0]);
 		if (status_code != 127)
 		{
 			export_errno(status_code);
@@ -53,7 +53,7 @@ int	launch_line(t_command_data *cmds_data)
 int	set_data(t_command_data	*cmds_data, char *line)
 {
 	char	*spaced_line;
-	
+
 	spaced_line = get_reconstruct_space(line);
 	if (!spaced_line)
 		return (0);

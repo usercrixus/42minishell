@@ -6,11 +6,30 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:17:36 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/04 20:14:18 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 20:53:21 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	set_start(char const *s, char *is_active, int *i, char c)
+{
+	while (!(*is_active) && s[*i] && s[*i] == c)
+		(*i)++;
+	return (*i);
+}
+
+void	set_end(char const *s, char *is_active, int *i, char c)
+{
+	while (s[*i] && (s[*i] != c || *is_active))
+	{
+		if (!(*is_active) && (s[*i] == '\'' || s[*i] == '"'))
+			*is_active = s[*i];
+		else if (*is_active && s[*i] == *is_active)
+			*is_active = 0;
+		(*i)++;
+	}
+}
 
 static int	tab_size(const char *s, char c)
 {
@@ -40,24 +59,6 @@ static int	tab_size(const char *s, char c)
 	return (size);
 }
 
-static char	*get_string(const char *s, int start, int end)
-{
-	char	*buffer;
-	int		k;
-
-	buffer = (char *)malloc(sizeof(char) * (end - start + 1));
-	if (!buffer)
-		return (0);
-	k = 0;
-	while (k < end - start)
-	{
-		buffer[k] = s[k + start];
-		k++;
-	}
-	buffer[k] = '\0';
-	return (buffer);
-}
-
 static int	populate(char const *s, char **result, char c)
 {
 	int		i;
@@ -75,7 +76,7 @@ static int	populate(char const *s, char **result, char c)
 		set_end(s, &is_active, &i, c);
 		if (start != i)
 		{
-			buffer = get_string(s, start, i);
+			buffer = ft_substr(s, start, (i - start));
 			if (!buffer)
 				return (0);
 			result[j++] = buffer;

@@ -6,9 +6,11 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 14:31:30 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/12 20:35:44 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 20:44:53 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../minishell.h"
 
 void	destroy_commands_array(char ***commands_array)
 {

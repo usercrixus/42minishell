@@ -3,47 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_integration.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 21:57:59 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/10 13:55:06 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/12 21:34:20 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	builtin_child_executer(char **command)
+int	builtin_child_executer(char **cmds)
 {
-	if (ft_strncmp(command[0], "exit", ft_strlen("exit") + 1) == 0)
+	if (ft_strncmp(cmds[0], "exit", ft_strlen("exit") + 1) == 0)
 		return (0);
-	else if (ft_strncmp(command[0], "cd", ft_strlen("cd") + 1) == 0)
-		return (ft_cd(command));
-	else if (ft_strncmp(command[0], "pwd", ft_strlen("pwd") + 1) == 0)
+	else if (ft_strncmp(cmds[0], "export", ft_strlen("export") + 1) == 0)
+		return (ft_export(cmds));
+	else if (ft_strncmp(cmds[0], "unset", ft_strlen("unset") + 1) == 0)
+		return (ft_unset(cmds));
+	else if (ft_strncmp(cmds[0], "cd", ft_strlen("cd") + 1) == 0)
+		return (ft_cd(cmds));
+	else if (ft_strncmp(cmds[0], "pwd", ft_strlen("pwd") + 1) == 0)
 		return (ft_pwd());
-	else if (ft_strncmp(command[0], "export", ft_strlen("export") + 1) == 0)
-		return (ft_export(command));
-	else if (ft_strncmp(command[0], "echo", ft_strlen("echo") + 1) == 0)
-		return (ft_echo(command));
-	else if (ft_strncmp(command[0], "unset", ft_strlen("unset") + 1) == 0)
-		return (ft_unset(command));
-	else if (ft_strncmp(command[0], "env", ft_strlen("env") + 1) == 0)
-		return (ft_env(command));
+	else if (ft_strncmp(cmds[0], "echo", ft_strlen("echo") + 1) == 0)
+		return (ft_echo(cmds));
+	else if (ft_strncmp(cmds[0], "env", ft_strlen("env") + 1) == 0)
+		return (ft_env(cmds));
 	return (127);
 }
 
-int	builtin_main_executer(t_command_data *commands_data)
+int	builtin_main_executer(char **cmds)
 {
-	if (ft_strncmp(commands_data->commands_array[0][0], "env", 4) == 0)
-		return (ft_env(commands_data->commands_array[0]));
-	if (ft_strncmp(commands_data->commands_array[0][0], "export", 7) == 0)
-		return (ft_export(commands_data->commands_array[0]));
-	if (ft_strncmp(commands_data->commands_array[0][0], "unset", 6) == 0)
-		return (ft_unset(commands_data->commands_array[0]));
-	if (ft_strncmp(commands_data->commands_array[0][0], "cd", 3) == 0)
-		return (ft_cd(commands_data->commands_array[0]));
-	if (ft_strncmp(commands_data->commands_array[0][0], "pwd", 4) == 0)
-		return (ft_pwd());
-	if (ft_strncmp(commands_data->commands_array[0][0], "exit", 5) == 0)
+	if (ft_strncmp(cmds[0], "exit", ft_strlen("exit") + 1) == 0)
 		return (-1);
+	if (ft_strncmp(cmds[0], "export", ft_strlen("export") + 1) == 0)
+		return (ft_export(cmds));
+	if (ft_strncmp(cmds[0], "unset", ft_strlen("unset") + 1) == 0)
+		return (ft_unset(cmds));
+	if (ft_strncmp(cmds[0], "cd", ft_strlen("cd") + 1) == 0)
+		return (ft_cd(cmds));
 	return (127);
 }
