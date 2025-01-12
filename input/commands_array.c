@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 14:31:30 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/12 04:18:06 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 06:19:55 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ char	***get_commands_array(char *line)
 	commands_string = special_split(line, '|');
 	if (!commands_string)
 		return (0);
-	if (!reconstruct_space(commands_string))
-		return (ft_free_split(commands_string), (char ***)0);
 	split_size = ft_split_size(commands_string);
 	commands_array = (char ***)ft_calloc(sizeof(char ***), split_size + 1);
 	if (!commands_array)

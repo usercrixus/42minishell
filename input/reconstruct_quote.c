@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:37:10 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/12 03:40:51 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 05:22:28 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	push_buffer(char *command, char quote, t_str **buffer, int *j)
 {
 	char	*env_var;
 
-	if (quote != '\'' && command[*j] == '$')
+	if (quote != '\'' && command[*j] == '$' && command[(*j) + 1] && command[(*j) + 1] != quote)
 	{
 		env_var = get_env_var(&command[++(*j)], quote);
 		if (env_var)

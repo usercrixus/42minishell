@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/12 04:18:05 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/12 06:20:23 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	set_data(t_command_data	*commands_data, char *line)
 	commands_data->output_array = 0;
 	if (is_syntax_error(line))
 		return (SYNTAX_ERROR);
+	if (!reconstruct_space(line))
+		return (MEMORY_ERROR);
 	commands_data->commands_array = get_commands_array(line);
 	if (!commands_data->commands_array)
 		return (MEMORY_ERROR);
