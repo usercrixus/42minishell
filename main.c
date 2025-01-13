@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:02:50 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/13 12:48:12 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/13 14:17:54 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,64 @@
 
 volatile sig_atomic_t	g_command_running = 0;
 char					**g_mini_env = NULL;
+
+void	create_shlvl(void)
+{
+	int		i;
+	char	**new_env;
+
+	i = ft_split_size(g_mini_env);
+	new_env = malloc((i + 2) * sizeof(char *));
+	if (!new_env)
+		return ;
+	i = 1;
+	while (g_mini_env[i + 1])
+	{
+		new_env[i] = ft_strdup(g_mini_env[i]);
+		if (!new_env[i])
+			return (ft_free_split(new_env));
+		i++;
+	}
+	new_env[i] = ft_strdup("SHLVL=1");
+	if (!new_env[i])
+		return (ft_free_split(new_env));
+	new_env[i + 1] = ft_strdup(g_mini_env[i]);
+	if (!new_env[i + 1])
+		return (ft_free_split(new_env));
+	new_env[i + 2] = NULL;
+	ft_free_split(g_mini_env);
+	g_mini_env = new_env;
+	return ;
+}
+
+int	replace_shlvl(void)
+{
+	int		i;
+	int		new;
+
+	i = 0;
+	while (g_mini_env[i])
+	{
+		if (ft_strncmp(g_mini_env[i], "SHLVL=", 6) == 0)
+		{
+			new = ft_atoi(ft_strchr(g_mini_env[i], '=') + 1) + 1;
+			free(g_mini_env[i]);
+			if (new >= 1000)
+			{
+				printf("warning: shell level (%d) too high, resetting to 1\n", \
+				new);
+				new = 1;
+			}
+			g_mini_env[i] = ft_strjoin("SHLVL=", ft_itoa(new));
+			if (!g_mini_env[i])
+				return (0);
+			return (1);
+		}
+		i++;
+	}
+	create_shlvl();
+	return (1);
+}
 
 void	init_mini_env(char **envp)
 {
@@ -37,6 +95,26 @@ void	init_mini_env(char **envp)
 		i++;
 	}
 	g_mini_env[i] = NULL;
+	if (!replace_shlvl())
+		return ;
+	return ;
+}
+
+void	init_no_envp(void)
+{
+	char	buff[50];
+
+	g_mini_env = malloc(5 * sizeof(char *));
+	g_mini_env[0] = ft_strdup("?=0");
+	if (!g_mini_env[0])
+		return (free(g_mini_env));
+	g_mini_env[1] = ft_strjoin("PWD=", getcwd(buff, 50));
+	if (!g_mini_env[0])
+		return (ft_free_split(g_mini_env));
+	g_mini_env[2] = ft_strdup("SHLVL=1");
+	if (!g_mini_env[1])
+		return (ft_free_split(g_mini_env));
+	g_mini_env[3] = NULL;
 	return ;
 }
 
@@ -44,10 +122,11 @@ int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-	if (!envp[0])
-		return (0);
 	setup_signals();
-	init_mini_env(envp);
+	if (!envp[0])
+		init_no_envp();
+	else
+		init_mini_env(envp);
 	input_loop();
 	return (0);
 }

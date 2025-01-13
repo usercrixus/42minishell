@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:27:38 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/13 12:52:21 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/13 14:31:09 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,29 @@ void	replace_value(char *var, char *value, int i)
 
 void	actualise_env(char *oldpwd)
 {
-	int		i;
 	char	buff[50];
+	char	**cmd;
 
-	i = 1;
-	while (g_mini_env[i])
-	{
-		if (ft_strncmp(g_mini_env[i], "OLDPWD", ft_strlen("OLDPWD")) == 0
-			&& g_mini_env[i][ft_strlen("OLDPWD")] == '=')
-			replace_value("OLDPWD=", oldpwd, i);
-		i++;
-	}
-	i = 1;
-	while (g_mini_env[i])
-	{
-		if (ft_strncmp(g_mini_env[i], "PWD", ft_strlen("PWD")) == 0
-			&& g_mini_env[i][ft_strlen("PWD")] == '=')
-			replace_value("PWD=", getcwd(buff, 50), i);
-		i++;
-	}
+	cmd = malloc(3 * sizeof(char *));
+	cmd[0] = ft_strdup("export");
+	if (!cmd[0])
+		return (ft_free_split(cmd));
+	cmd[1] = ft_strjoin("PWD=", getcwd(buff, 50));
+	if (!cmd[1])
+		return (ft_free_split(cmd));
+	cmd[2] = NULL;
+	ft_export(cmd);
+	ft_free_split(cmd);
+	cmd = malloc(3 * sizeof(char *));
+	cmd[0] = ft_strdup("export");
+	if (!cmd[0])
+		return (ft_free_split(cmd));
+	cmd[1] = ft_strjoin("OLDPWD=", oldpwd);
+	if (!cmd[1])
+		return (ft_free_split(cmd));
+	cmd[2] = NULL;
+	ft_export(cmd);
+	ft_free_split(cmd);
 	return ;
 }
 
@@ -94,7 +98,7 @@ void	go_to_desktop_and_more(char **command, char *old_pwd)
 	final_cmd = NULL;
 	home = get_home_path();
 	if (home == NULL)
-		ft_putstr_fd("HOME not set\n", 2);
+		return (ft_putstr_fd("HOME not set\n", 2), (void)0);
 	else if (command[1] && old_pwd)
 	{
 		cmd = ft_substr(command[1], 1, ft_strlen(command[1]));
