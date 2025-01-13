@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:02:50 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/13 15:07:22 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/13 17:03:24 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,10 @@ void	init_no_envp(void)
 	if (!g_mini_env[0])
 		return (free(g_mini_env));
 	g_mini_env[1] = ft_strjoin("PWD=", getcwd(buff, 50));
-	if (!g_mini_env[0])
+	if (!g_mini_env[1])
 		return (ft_free_split(g_mini_env));
 	g_mini_env[2] = ft_strdup("SHLVL=1");
-	if (!g_mini_env[1])
+	if (!g_mini_env[2])
 		return (ft_free_split(g_mini_env));
 	g_mini_env[3] = NULL;
 	return ;
