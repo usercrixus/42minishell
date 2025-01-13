@@ -6,11 +6,24 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 22:27:35 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/12 10:08:56 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/13 20:53:18 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	build_here_doc_helper(t_str *str, char *line, t_str *buffer)
+{
+	line = ft_str_get_char_array(buffer, buffer->size);
+	if (!line)
+		return (free(line), ft_str_free(buffer), 0);
+	if (!ft_str_push(str, line, ft_strlen(line))
+		|| !ft_str_push(str, "\n", 1))
+		return (free(line), ft_str_free(buffer), 0);
+	free(line);
+	ft_str_free(buffer);
+	return (1);
+}
 
 int	build_here_doc(t_str *str, char *delimiter)
 {
@@ -19,21 +32,16 @@ int	build_here_doc(t_str *str, char *delimiter)
 
 	buffer = 0;
 	line = readline(">");
-	while (line && ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1) != 0)
+	while (line > 0
+		&& ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1) != 0)
 	{
 		if (!reconstruct_arg_env_var(line, &buffer))
 			return (free(line), 0);
 		free(line);
 		if (buffer)
 		{
-			line = ft_str_get_char_array(buffer, buffer->size);
-			if (!line)
-				return (free(line), ft_str_free(buffer), 0);
-			if (!ft_str_push(str, line, ft_strlen(line))
-				|| !ft_str_push(str, "\n", 1))
-				return (free(line), ft_str_free(buffer), 0);
-			free(line);
-			ft_str_free(buffer);
+			if (!build_here_doc_helper(str, line, buffer))
+				return (0);
 			buffer = 0;
 		}
 		line = readline(">");
@@ -46,12 +54,16 @@ int	set_here_doc(char *delimiter)
 	t_str	*str;
 	char	*buff;
 	int		tmp_file;
+	int		build_status;
 
 	str = ft_str_create();
 	if (!str)
 		return (0);
-	if (!build_here_doc(str, delimiter))
+	build_status = build_here_doc(str, delimiter);
+	if (!build_status)
 		return (ft_str_free(str), 0);
+	if (build_status == EOF)
+		return (ft_str_free(str), EOF);
 	buff = ft_str_get_char_array(str, str->size - str->start);
 	if (!buff)
 		return (ft_str_free(str), 0);
@@ -65,9 +77,14 @@ int	set_here_doc(char *delimiter)
 int	get_here_doc(char *delimiter)
 {
 	int	fd_in;
+	int	set_status;
 
-	if (!set_here_doc(delimiter))
+	set_status = set_here_doc(delimiter);
+	if (!set_status)
 		return (0);
+	if (set_status == EOF)
+		return (printf("bash: warning: here-document at line 1 delimited \
+		by end-of-file (wanted '%s')", delimiter), 0);
 	fd_in = open("here_doc", O_RDONLY);
 	if (fd_in == -1)
 	{

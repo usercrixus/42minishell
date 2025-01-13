@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 19:00:13 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/12 20:35:32 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/13 21:35:33 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	set_output(char **commands_array, int *fd_output)
 		if (ft_strncmp(commands_array[i], ">>", 3) == 0
 			|| ft_strncmp(commands_array[i], ">", 3) == 0)
 		{
-			if (*fd_output != 0 && !close(*fd_output))
+			if (*fd_output != 0 && close(*fd_output) == -1)
 				return (0);
-			if (ft_strncmp(commands_array[i], ">", 3) == 0)
+			if (ft_strncmp(commands_array[i], ">", 2) == 0)
 				flags = O_CREAT | O_WRONLY | O_TRUNC;
 			else
 				flags = O_CREAT | O_WRONLY | O_APPEND;
