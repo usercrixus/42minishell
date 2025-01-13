@@ -6,40 +6,11 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:27:38 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/13 14:31:09 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/13 14:33:57 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	replace_value(char *var, char *value, int i)
-{
-	int		j;
-	char	**new_env;
-
-	j = 0;
-	if (!value)
-		return ;
-	while (g_mini_env[j])
-		j++;
-	new_env = malloc((j + 1) * sizeof(char *));
-	if (!new_env)
-		return ;
-	j = 0;
-	while (g_mini_env[j])
-	{
-		if (j != i)
-			new_env[j] = ft_strdup(g_mini_env[j]);
-		else
-			new_env[j] = ft_strjoin(var, value);
-		if (!new_env[j])
-			return ;
-		j++;
-	}
-	new_env[j] = NULL;
-	ft_free_split(g_mini_env);
-	g_mini_env = new_env;
-}
 
 void	actualise_env(char *oldpwd)
 {
