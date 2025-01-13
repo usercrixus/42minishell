@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:56:44 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/13 12:33:19 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/13 13:05:19 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	reconstruct_env(char **new_env, int i)
 		{
 			new_env[j] = ft_strdup(g_mini_env[j]);
 			if (!new_env[j])
-				return ;
+				return (ft_free_split(new_env));
 		}
 		else if (j > i)
 		{
 			new_env[j - 1] = ft_strdup(g_mini_env[j]);
 			if (!new_env[j - 1])
-				return ;
+				return (ft_free_split(new_env));
 		}
 		j++;
 	}

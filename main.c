@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:02:50 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/13 12:25:21 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/13 12:48:12 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,14 @@ void	init_mini_env(char **envp)
 		i++;
 	g_mini_env = malloc((i + 2) * sizeof(char *));
 	g_mini_env[0] = ft_strdup("?=0");
+	if (!g_mini_env[0])
+		return (free(g_mini_env));
 	i = 1;
 	while (envp[i])
 	{
 		g_mini_env[i] = ft_strdup(envp[i]);
+		if (!g_mini_env[i])
+			return (ft_free_split(g_mini_env));
 		i++;
 	}
 	g_mini_env[i] = NULL;
