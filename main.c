@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:02:50 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/10 15:15:08 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/13 12:25:21 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
+	if (!envp[0])
+		return (0);
 	setup_signals();
 	init_mini_env(envp);
 	input_loop();

@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:27:38 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/10 15:17:30 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/13 12:37:37 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	replace_value(char *var, char *value, int i)
 			new_env[j] = ft_strdup(g_mini_env[j]);
 		else
 			new_env[j] = ft_strjoin(var, value);
+		if (!new_env[j])
+			return ;
 		j++;
 	}
 	new_env[j] = NULL;

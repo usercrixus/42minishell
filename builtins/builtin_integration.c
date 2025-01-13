@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_integration.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 21:57:59 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/12 21:34:20 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/13 12:35:28 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,9 @@ int	builtin_main_executer(char **cmds)
 		return (ft_unset(cmds));
 	if (ft_strncmp(cmds[0], "cd", ft_strlen("cd") + 1) == 0)
 		return (ft_cd(cmds));
+	if (ft_strncmp(cmds[0], "env", ft_strlen("env") + 1) == 0)
+		return (ft_env(cmds));
+	if (ft_strncmp(cmds[0], "pwd", ft_strlen("pwd") + 1) == 0)
+		return (ft_pwd());
 	return (127);
 }
