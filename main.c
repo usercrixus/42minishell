@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:02:50 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/13 14:17:54 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/13 15:07:22 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	replace_shlvl(void)
 {
 	int		i;
 	int		new;
+	char	*value;
 
 	i = 0;
 	while (g_mini_env[i])
@@ -64,15 +65,13 @@ int	replace_shlvl(void)
 				new);
 				new = 1;
 			}
-			g_mini_env[i] = ft_strjoin("SHLVL=", ft_itoa(new));
-			if (!g_mini_env[i])
-				return (0);
-			return (1);
+			value = ft_itoa(new);
+			g_mini_env[i] = ft_strjoin("SHLVL=", value);
+			return (free(value), 1);
 		}
 		i++;
 	}
-	create_shlvl();
-	return (1);
+	return (create_shlvl(), 1);
 }
 
 void	init_mini_env(char **envp)
