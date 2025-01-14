@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   special_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:17:36 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/12 20:53:21 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:45:35 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	**special_split(char const *s, char c)
 {
 	char	**result;
 
-	result = (char **)malloc(sizeof(char *) * (tab_size(s, c) + 1));
+	result = (char **)ft_calloc(sizeof(char *), (tab_size(s, c) + 1));
 	if (!result)
 		return (0);
 	if (!populate(s, result, c))

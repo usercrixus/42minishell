@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/14 17:59:17 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/14 18:28:50 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int	launch_line(t_command_data *cmds_data)
 		status_code = builtin_main_executer(cmds_data->commands_array[0]);
 		if (status_code != 127)
 		{
-			export_errno(status_code);
 			if (status_code == -1)
 				return (EXIT);
+			export_errno(status_code);
 			return (SUCCESS);
 		}
 	}
@@ -101,7 +101,7 @@ void	input_loop(void)
 		setup_signal();
 		line = readline("\033[1;32mminishell@chodel: \033[0m");
 		if (!line)
-			ft_exit();
+			ft_exit(0);
 		if (line && get_char_occurence(line, ' ') != ft_strlen(line))
 		{
 			add_history(line);
@@ -114,5 +114,5 @@ void	input_loop(void)
 		}
 		free(line);
 	}
-	ft_exit();
+	ft_exit(0);
 }

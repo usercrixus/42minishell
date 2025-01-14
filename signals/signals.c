@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:35:53 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/14 18:06:13 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/14 18:29:21 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ void	setup_signals_not_blocking_cmd(void)
 	if (signal(SIGINT, handle_sigint_not_blocking) == SIG_ERR)
 	{
 		perror("signal(SIGINT)");
-		ft_exit();
+		ft_exit(0);
 	}
 	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 	{
 		perror("signal(SIGQUIT)");
-		ft_exit();
+		ft_exit(0);
 	}
 }
 
@@ -61,12 +61,12 @@ void	setup_signals_blocking_cmd(void)
 	if (signal(SIGINT, handle_sigint_blocking) == SIG_ERR)
 	{
 		perror("signal(SIGINT)");
-		ft_exit();
+		ft_exit(0);
 	}
 	if (signal(SIGQUIT, handle_sigint_blocking) == SIG_ERR)
 	{
 		perror("signal(SIGQUIT)");
-		ft_exit();
+		ft_exit(0);
 	}
 }
 
