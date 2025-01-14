@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 22:27:35 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/14 17:34:10 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:50:27 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,7 @@ int	build_here_doc(t_str *str, char *delimiter)
 
 	buffer = 0;
 	line = read_line_helper(delimiter);
-	if (!line && ft_strncmp(ft_get_env("?"), "0", 2) != 0)
-		return (0);
-	if (!line && ft_strncmp(ft_get_env("?"), "0", 2) == 0)
-		return (1);
-	while (ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1) != 0)
+	while (line && ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1) != 0)
 	{
 		if (!reconstruct_arg_env_var(line, &buffer))
 			return (free(line), 0);
@@ -59,11 +55,12 @@ int	build_here_doc(t_str *str, char *delimiter)
 				return (free(line), 0);
 			buffer = 0;
 		}
+		free(line);
 		line = read_line_helper(delimiter);
-		if (!line && ft_strncmp(ft_get_env("?"), "0", 2) != 0)
-			return (0);
 	}
-	return (free(line), 1);
+	if (!line && ft_strncmp(ft_get_env("?"), "0", 2) != 0)
+		return (0);
+	return (1);
 }
 
 int	set_here_doc(char *delimiter)
