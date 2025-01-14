@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:56:03 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/14 17:22:22 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:26:27 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	close_fds(int *fds, int size)
 	i = 0;
 	while (i < size)
 	{
-		if (fds[i])
+		if (fds[i] > 0)
 			close(fds[i]);
 		i++;
 	}

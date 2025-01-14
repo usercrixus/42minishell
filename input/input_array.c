@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 19:00:13 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/14 14:59:32 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:27:16 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	shift_command(char **commands_array, int *fd_input, int i)
 	{
 		*fd_input = get_here_doc(commands_array[i + 1]);
 		if (*fd_input == -1)
-			return (close_fds(fd_input, ft_split_size(commands_array)), 0);
+			return (0);
 	}
 	else if (ft_strncmp(commands_array[i], "<", 2) == 0)
 		*fd_input = open(commands_array[i + 1], O_RDONLY);

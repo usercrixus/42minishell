@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:54:45 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/10 11:53:14 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/14 17:44:20 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int	ft_echo(char **command)
 	int	n_option;
 	int	i;
 
+	if (!command[1])
+		return (0);
 	n_option = 0;
 	i = flag(command);
 	n_option = i - 1;
