@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/12 21:34:49 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 12:32:05 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ int		ft_echo(char **command);
 int		ft_unset(char **command);
 int		ft_env(char **command);
 int		ft_export(char **command);
+int		create_cmd(char *cmd, char *final_cmd, char **home, char **command);
+void	error_directory(char **command);
 
 #endif

@@ -24,6 +24,7 @@ OBJS = \
 		builtins/export.o \
 		builtins/pwd.o \
 		builtins/cd.o \
+		builtins/cd_utils.o \
 		builtins/echo.o \
 		builtins/env.o \
 		builtins/pwd.o \

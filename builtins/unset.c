@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:56:44 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/13 17:28:45 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/14 11:53:10 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,32 +58,46 @@ int	delete_var(int i)
 	return (0);
 }
 
-int	ft_unset(char **command)
+int	unseting(char **command, int *rv, int j)
 {
 	int	i;
+
+	i = 1;
+	while (g_mini_env[i])
+	{
+		if (ft_strncmp(g_mini_env[i], command[j], ft_strlen(command[j])) \
+		== 0 && g_mini_env[i][ft_strlen(command[j])] == '=')
+		{
+			if (delete_var(i) == 1)
+				return (1);
+			*rv = 0;
+			break ;
+		}
+		else
+			*rv = 1;
+		i++;
+	}
+	return (0);
+}
+
+int	ft_unset(char **command)
+{
 	int	j;
 	int	rv;
+	int	rv_nul;
 
 	rv = 0;
 	j = 1;
+	rv_nul = 0;
 	while (command[j])
 	{
-		i = 1;
-		while (g_mini_env[i])
-		{
-			if (ft_strncmp(g_mini_env[i], command[j], ft_strlen(command[j])) \
-			== 0 && g_mini_env[i][ft_strlen(command[j])] == '=')
-			{
-				if (delete_var(i) == 1)
-					return (1);
-				rv = 0;
-				break ;
-			}
-			else
-				rv = 1;
-			i++;
-		}
+		if (unseting(command, &rv, j) == 1)
+			rv = 1;
+		if (rv == 1)
+			rv_nul = 1;
 		j++;
 	}
-	return (rv);
+	if (rv_nul == 1)
+		return (1);
+	return (0);
 }
