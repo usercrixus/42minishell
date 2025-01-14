@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:02:50 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/14 18:14:34 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/14 23:47:44 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ int	init_no_envp(void)
 
 int	main(int argc, char **argv, char **envp)
 {
+	int	return_status;
+
 	(void)argc;
 	(void)argv;
 	setup_signal();
@@ -138,5 +140,8 @@ int	main(int argc, char **argv, char **envp)
 			return (0);
 	}
 	input_loop();
-	return (0);
+	return_status = atoi(ft_get_env("?"));
+	ft_free_split(g_mini_env);
+	rl_clear_history();
+	return (return_status);
 }
