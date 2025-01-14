@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 22:27:35 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/14 07:28:33 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 07:39:28 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ char	*read_line_helper(char *delimiter)
 
 	line = readline(">");
 	if (!line && ft_strncmp(ft_get_env("?"), "0", 2) == 0)
-		printf("bash: warning: here-document at line 1 delimited by end-of-file (wanted '%s')\n", delimiter);
+	{
+		printf("bash: warning: here-document delimited by");
+		printf(" end-of-file (wanted '%s')\n", delimiter);
+	}
 	return (line);
 }
 
