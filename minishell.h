@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/12 21:29:05 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:14:50 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef enum e_status
 }	t_status;
 
 extern char						**g_mini_env;
-extern volatile sig_atomic_t	g_command_running;
+extern pid_t					g_command_running;
 
 void	export_errno(int code_error);
 char	*ft_get_env(const char *var_name);
@@ -79,8 +79,7 @@ int		is_syntax_error(char *command);
 /**
  * shift (on the left) by size an array of char* (char **), freeing
  * the first size elements.
- * command : the command to shift
- * len : the size of shift
+ * command : the command to shiftSIG_IGN
  */
 void	shift(char **command, int size);
 /**
@@ -158,7 +157,7 @@ int		get_char_occurence(char *str, char c);
  * c : the character to split on (here typicaly a space or a pipe)
  */
 char	**special_split(char const *s, char c);
-
+int		is_valid_env_id(char *arg);
 void	setup_signals(void);
 
 #endif

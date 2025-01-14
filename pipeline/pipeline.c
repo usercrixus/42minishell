@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:56:03 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/14 14:48:14 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:22:22 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	launch_pipe_series(t_command_data *command_data, int max)
 	while (i < max)
 	{
 		pid = fork();
+		g_command_running = pid;
 		if (pid == -1)
 			return (perror("Error launching pipe: "), 0);
 		else if (pid == 0)

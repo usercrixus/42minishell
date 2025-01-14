@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 17:10:09 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/13 17:26:33 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/14 16:04:29 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	add_to_env(char *var)
 	return (0);
 }
 
-int	is_valid(char *arg)
+int	is_valid_env_id(char *arg)
 {
 	char	*temp;
 	char	*ptr;
@@ -94,7 +94,7 @@ int	is_valid(char *arg)
 		return (printf("export: '%s': not a valid identifier\n", arg), 0);
 	if (!(arg[0] == '_' || (arg[0] >= 'a' && arg[0] <= 'z')
 			|| (arg[0] >= 'A' && arg[0] <= 'Z')))
-		return (0);
+		return (printf("export: '%s': not a valid identifier\n", arg), 0);
 	ptr = arg;
 	while (ptr < temp)
 	{
@@ -102,7 +102,7 @@ int	is_valid(char *arg)
 				|| (*ptr >= 'A' && *ptr <= 'Z')
 				|| (*ptr >= '0' && *ptr <= '9')
 				|| (*ptr == '_')))
-			return (0);
+			return (printf("export: '%s': not a valid identifier\n", arg), 0);
 		ptr++;
 	}
 	return (1);
@@ -117,7 +117,7 @@ int	ft_export(char **vars)
 	i = 1;
 	while (vars[i])
 	{
-		if (is_valid(vars[i]))
+		if (is_valid_env_id(vars[i]))
 		{
 			if (add_to_env(vars[i]) == 1)
 				return (1);

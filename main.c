@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:02:50 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/14 13:14:23 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/14 17:16:59 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <sys/prctl.h>
 #include <sys/syscall.h>
 
-volatile sig_atomic_t	g_command_running = 0;
+pid_t					g_command_running = -1;
 char					**g_mini_env = NULL;
 
 void	create_shlvl(void)

@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/14 14:51:34 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:16:14 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ void	input_loop(void)
 	status = NONE;
 	while (status != EXIT)
 	{
-		g_command_running = 0;
+		g_command_running = -1;
+		setup_signals();
 		line = readline("\033[1;32mminishell@chodel: \033[0m");
 		if (!line)
 			ft_exit();
@@ -107,6 +108,7 @@ void	input_loop(void)
 			if (!is_syntax_error(line))
 			{
 				g_command_running = 1;
+				setup_signals();
 				status = manage_line(line);
 			}
 		}

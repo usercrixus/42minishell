@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:35:53 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/14 14:53:01 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:19:48 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	handle_sigint(int sig)
 {
 	(void)sig;
-	if (g_command_running)
+	if (g_command_running > 0)
 	{
 		write(STDOUT_FILENO, "\n", 1);
 		return ;

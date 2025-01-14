@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 06:33:47 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/12 09:32:33 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:27:02 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*get_env_var(char *s, char terminator)
 
 	var_name_buffer = ft_str_create();
 	i = 0;
-	while (s[i] && s[i] != ' ' && s[i] != '$' && s[i] != terminator)
+	while (s[i] && s[i] != terminator
+		&& (s[i] == '?' || s[i] == '_' || ft_isalpha(s[i])))
 		i++;
 	if (!ft_str_push(var_name_buffer, s, i))
 		return (0);
@@ -65,8 +66,8 @@ int	reconstruct_arg_env_var(char *commands, t_str **buffer)
 		{
 			push_env(buffer, &commands[j + 1], quote);
 			j++;
-			while (commands[j] && commands[j] != '$'
-				&& commands[j] != ' ' && commands[j] != quote)
+			while (commands[j] && commands[j] != quote && (commands[j] == '?'
+					|| commands[j] == '_' || ft_isalpha(commands[j])))
 				j++;
 		}
 		else if (!push_char(buffer, &commands[j++]))
