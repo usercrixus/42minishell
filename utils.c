@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 20:34:56 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/13 15:36:12 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/14 12:50:44 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	export_errno(int code_error)
 	char	*buff;
 
 	buff = ft_itoa(code_error);
+	if (!buff)
+		return ;
 	if (g_mini_env[0])
 		free(g_mini_env[0]);
 	g_mini_env[0] = ft_strjoin("?=", buff);

@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:02:50 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/13 17:03:24 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/14 12:56:47 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	replace_shlvl(void)
 				new = 1;
 			}
 			value = ft_itoa(new);
+			if (!value)
+				return (0);
 			g_mini_env[i] = ft_strjoin("SHLVL=", value);
 			return (free(value), 1);
 		}
@@ -74,7 +76,7 @@ int	replace_shlvl(void)
 	return (create_shlvl(), 1);
 }
 
-void	init_mini_env(char **envp)
+int	init_mini_env(char **envp)
 {
 	int	i;
 
@@ -82,39 +84,43 @@ void	init_mini_env(char **envp)
 	while (envp[i])
 		i++;
 	g_mini_env = malloc((i + 2) * sizeof(char *));
+	if (!g_mini_env)
+		return (0);
 	g_mini_env[0] = ft_strdup("?=0");
 	if (!g_mini_env[0])
-		return (free(g_mini_env));
+		return (free(g_mini_env), 0);
 	i = 1;
 	while (envp[i])
 	{
 		g_mini_env[i] = ft_strdup(envp[i]);
 		if (!g_mini_env[i])
-			return (ft_free_split(g_mini_env));
+			return (ft_free_split(g_mini_env), 0);
 		i++;
 	}
 	g_mini_env[i] = NULL;
 	if (!replace_shlvl())
-		return ;
-	return ;
+		return (0);
+	return (1);
 }
 
-void	init_no_envp(void)
+int	init_no_envp(void)
 {
 	char	buff[50];
 
 	g_mini_env = malloc(5 * sizeof(char *));
+	if (!g_mini_env)
+		return (0);
 	g_mini_env[0] = ft_strdup("?=0");
 	if (!g_mini_env[0])
-		return (free(g_mini_env));
+		return (free(g_mini_env), 0);
 	g_mini_env[1] = ft_strjoin("PWD=", getcwd(buff, 50));
 	if (!g_mini_env[1])
-		return (ft_free_split(g_mini_env));
+		return (ft_free_split(g_mini_env), 0);
 	g_mini_env[2] = ft_strdup("SHLVL=1");
 	if (!g_mini_env[2])
-		return (ft_free_split(g_mini_env));
+		return (ft_free_split(g_mini_env), 0);
 	g_mini_env[3] = NULL;
-	return ;
+	return (1);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -123,9 +129,15 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	setup_signals();
 	if (!envp[0])
-		init_no_envp();
+	{
+		if (init_no_envp() == 0)
+			return (0);
+	}
 	else
-		init_mini_env(envp);
+	{
+		if (init_mini_env(envp) == 0)
+			return (0);
+	}
 	input_loop();
 	return (0);
 }
