@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/14 17:14:50 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:06:42 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,6 @@ int		get_char_occurence(char *str, char c);
  */
 char	**special_split(char const *s, char c);
 int		is_valid_env_id(char *arg);
-void	setup_signals(void);
+void	setup_signal(void);
 
 #endif

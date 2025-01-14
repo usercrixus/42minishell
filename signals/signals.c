@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:35:53 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/14 17:19:48 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:06:13 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	handle_sigint(int sig)
+void	handle_sigint_not_blocking(int sig)
 {
 	(void)sig;
 	if (g_command_running > 0)
@@ -27,9 +27,24 @@ void	handle_sigint(int sig)
 	rl_redisplay();
 }
 
-void	setup_signals(void)
+void	handle_sigint_blocking(int sig)
 {
-	if (signal(SIGINT, handle_sigint) == SIG_ERR)
+	if (sig == SIGINT)
+	{
+		printf("\n");
+		export_errno(130);
+	}
+	else if (sig == SIGQUIT)
+	{
+		kill(g_command_running, sig);
+		printf("Quit (Core Dumped)\n");
+		export_errno(131);
+	}
+}
+
+void	setup_signals_not_blocking_cmd(void)
+{
+	if (signal(SIGINT, handle_sigint_not_blocking) == SIG_ERR)
 	{
 		perror("signal(SIGINT)");
 		ft_exit();
@@ -39,4 +54,26 @@ void	setup_signals(void)
 		perror("signal(SIGQUIT)");
 		ft_exit();
 	}
+}
+
+void	setup_signals_blocking_cmd(void)
+{
+	if (signal(SIGINT, handle_sigint_blocking) == SIG_ERR)
+	{
+		perror("signal(SIGINT)");
+		ft_exit();
+	}
+	if (signal(SIGQUIT, handle_sigint_blocking) == SIG_ERR)
+	{
+		perror("signal(SIGQUIT)");
+		ft_exit();
+	}
+}
+
+void	setup_signal(void)
+{
+	if (g_command_running == -1)
+		setup_signals_not_blocking_cmd();
+	else
+		setup_signals_blocking_cmd();
 }
