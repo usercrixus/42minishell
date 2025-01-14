@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 12:15:54 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/14 18:45:00 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/14 18:52:28 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,11 @@ void	ft_exit(char **cmds)
 			printf("exit: too many arguments\n");
 		else if (is_integer(cmds[1]))
 		{
+			status = ft_atoi(cmds[1]);
 			ft_free_split(cmds);
 			ft_free_split(g_mini_env);
 			rl_clear_history();
-			exit(ft_atoi(cmds[1]));
+			exit(status);
 		}
 		else
 			printf("exit: numeric argument required\n");
