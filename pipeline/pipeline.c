@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:56:03 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/12 21:24:24 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:48:14 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	manage_child(t_command_data *command_data, int i, int max)
 	close_fds(command_data->output_array, max);
 	buffer_errno = execute_child(command_data->commands_array[i]);
 	destroy_all(command_data);
-	ft_exit(buffer_errno);
+	export_errno(buffer_errno);
+	ft_exit();
 }
 
 int	launch_pipe_series(t_command_data *command_data, int max)

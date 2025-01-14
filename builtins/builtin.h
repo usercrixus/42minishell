@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/14 12:32:05 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/14 14:45:44 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int		builtin_main_executer(char **command);
 int		builtin_child_executer(char **command);
-void	ft_exit(int status);
+void	ft_exit(void);
 int		ft_pwd(void);
 int		ft_cd(char **command);
 int		ft_echo(char **command);

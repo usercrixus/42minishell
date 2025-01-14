@@ -6,7 +6,7 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/14 07:25:41 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:51:34 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	input_loop(void)
 		g_command_running = 0;
 		line = readline("\033[1;32mminishell@chodel: \033[0m");
 		if (!line)
-			ft_exit(0);
+			ft_exit();
 		if (line && get_char_occurence(line, ' ') != ft_strlen(line))
 		{
 			add_history(line);
@@ -108,11 +108,9 @@ void	input_loop(void)
 			{
 				g_command_running = 1;
 				status = manage_line(line);
-				// if (status == MEMORY_ERROR)
-				// 	ft_putstr_fd("Error during the parsing\n", 2);
 			}
 		}
 		free(line);
 	}
-	ft_exit(0);
+	ft_exit();
 }

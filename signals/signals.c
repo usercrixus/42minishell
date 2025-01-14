@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:35:53 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/08 12:25:27 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/14 14:53:01 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	handle_sigint(int sig)
 		write(STDOUT_FILENO, "\n", 1);
 		return ;
 	}
+	export_errno(130);
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -31,11 +32,11 @@ void	setup_signals(void)
 	if (signal(SIGINT, handle_sigint) == SIG_ERR)
 	{
 		perror("signal(SIGINT)");
-		exit(1);
+		ft_exit();
 	}
 	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 	{
 		perror("signal(SIGQUIT)");
-		exit(1);
+		ft_exit();
 	}
 }
