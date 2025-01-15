@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_integration.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 21:57:59 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/14 23:45:26 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:27:39 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	builtin_child_executer(char **cmds)
 {
 	if (ft_strncmp(cmds[0], "exit", ft_strlen("exit") + 1) == 0)
-		return (ft_exit_child(cmds), 0);
+		return (ft_exit(cmds), 0);
 	else if (ft_strncmp(cmds[0], "export", ft_strlen("export") + 1) == 0)
 		return (ft_export(cmds));
 	else if (ft_strncmp(cmds[0], "unset", ft_strlen("unset") + 1) == 0)
@@ -34,7 +34,7 @@ int	builtin_child_executer(char **cmds)
 int	builtin_main_executer(char **cmds)
 {
 	if (ft_strncmp(cmds[0], "exit", ft_strlen("exit") + 1) == 0)
-		return (ft_exit_main(cmds), -1);
+		return (ft_exit(cmds), 0);
 	if (ft_strncmp(cmds[0], "export", ft_strlen("export") + 1) == 0)
 		return (ft_export(cmds));
 	if (ft_strncmp(cmds[0], "unset", ft_strlen("unset") + 1) == 0)

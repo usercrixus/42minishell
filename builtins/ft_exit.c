@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 12:15:54 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/14 23:44:32 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:52:28 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,30 +40,30 @@ int	is_integer(char *s)
 	return (1);
 }
 
-void	ft_exit_main(char **cmds)
+void	ft_exit(char **cmds)
 {
-	if (cmds && cmds[1])
-	{
-		if (ft_split_size(cmds) > 2)
-			printf("exit: too many arguments\n");
-		else if (is_integer(cmds[1]))
-			export_errno(ft_atoi(cmds[1]));
-		else
-			printf("exit: numeric argument required\n");
-	}
-}
+	int	status;
 
-void	ft_exit_child(char **cmds)
-{
-	if (cmds && cmds[1])
+	if (!cmds)
 	{
-		if (ft_split_size(cmds) > 2)
-			printf("exit: too many arguments\n");
-		else if (is_integer(cmds[1]))
-			exit(ft_atoi(cmds[1]));
-		else
-			printf("exit: numeric argument required\n");
+		status = ft_atoi(ft_get_env("?"));
+		ft_free_split(g_mini_env);
+		rl_clear_history();
+		exit(status);
 	}
 	else
-		exit(ft_atoi(ft_get_env("?")));
+	{
+		if (ft_split_size(cmds) > 2)
+			printf("exit: too many arguments\n");
+		else if (is_integer(cmds[1]))
+		{
+			status = ft_atoi(cmds[1]);
+			ft_free_split(cmds);
+			ft_free_split(g_mini_env);
+			rl_clear_history();
+			exit(status);
+		}
+		else
+			printf("exit: numeric argument required\n");
+	}
 }

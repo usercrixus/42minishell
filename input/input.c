@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/15 00:13:45 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:28:50 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	launch_line(t_command_data *cmds_data)
 		}
 	}
 	if (!launch_pipe_series(cmds_data, cmds_size))
-		return (ERROR);
+		return (MEMORY_ERROR);
 	return (NONE);
 }
 
@@ -84,7 +84,7 @@ enum e_status	manage_line(char *line)
 	cmds_data.output_array = 0;
 	status_code = set_data(&cmds_data, line);
 	if (status_code == 0)
-		return (destroy_all(&cmds_data), ERROR);
+		return (destroy_all(&cmds_data), MEMORY_ERROR);
 	status_code = launch_line(&cmds_data);
 	return (destroy_all(&cmds_data), status_code);
 }
@@ -101,7 +101,7 @@ void	input_loop(void)
 		setup_signal();
 		line = readline("\033[1;32mminishell@chodel: \033[0m");
 		if (!line)
-			exit(atoi(ft_get_env("?")));
+			ft_exit(0);
 		if (line && get_char_occurence(line, ' ') != ft_strlen(line))
 		{
 			add_history(line);
@@ -110,10 +110,9 @@ void	input_loop(void)
 				g_command_running = 1;
 				setup_signal();
 				status = manage_line(line);
-				if (status == ERROR)
-					export_errno(errno);
 			}
 		}
 		free(line);
 	}
+	ft_exit(0);
 }

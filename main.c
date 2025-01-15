@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:02:50 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/15 00:41:49 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:14:34 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 pid_t					g_command_running = -1;
 char					**g_mini_env = NULL;
 
-int	create_shlvl(void)
+void	create_shlvl(void)
 {
 	int		i;
 	char	**new_env;
@@ -25,25 +25,25 @@ int	create_shlvl(void)
 	i = ft_split_size(g_mini_env);
 	new_env = malloc((i + 2) * sizeof(char *));
 	if (!new_env)
-		return (0);
+		return ;
 	i = 1;
 	while (g_mini_env[i + 1])
 	{
 		new_env[i] = ft_strdup(g_mini_env[i]);
 		if (!new_env[i])
-			return (ft_free_split(new_env), 0);
+			return (ft_free_split(new_env));
 		i++;
 	}
 	new_env[i] = ft_strdup("SHLVL=1");
 	if (!new_env[i])
-		return (ft_free_split(new_env), 0);
+		return (ft_free_split(new_env));
 	new_env[i + 1] = ft_strdup(g_mini_env[i]);
 	if (!new_env[i + 1])
-		return (ft_free_split(new_env), 0);
+		return (ft_free_split(new_env));
 	new_env[i + 2] = NULL;
 	ft_free_split(g_mini_env);
 	g_mini_env = new_env;
-	return (1);
+	return ;
 }
 
 int	replace_shlvl(void)
@@ -72,7 +72,7 @@ int	replace_shlvl(void)
 			return (free(value), 1);
 		}
 	}
-	return (create_shlvl());
+	return (create_shlvl(), 1);
 }
 
 int	init_mini_env(char **envp)
@@ -124,24 +124,19 @@ int	init_no_envp(void)
 
 int	main(int argc, char **argv, char **envp)
 {
-	int	return_status;
-
 	(void)argc;
 	(void)argv;
 	setup_signal();
 	if (!envp[0])
 	{
 		if (init_no_envp() == 0)
-			return (1);
+			return (0);
 	}
 	else
 	{
 		if (init_mini_env(envp) == 0)
-			return (1);
+			return (0);
 	}
 	input_loop();
-	return_status = atoi(ft_get_env("?"));
-	ft_free_split(g_mini_env);
-	rl_clear_history();
-	return (return_status);
+	return (0);
 }

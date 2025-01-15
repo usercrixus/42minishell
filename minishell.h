@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/15 00:36:42 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:10:28 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,13 @@ typedef enum e_status
 	NONE,
 	SUCCESS,
 	EXIT,
-	ERROR
+	MEMORY_ERROR
 }	t_status;
 
 extern char						**g_mini_env;
 extern pid_t					g_command_running;
 
-/**
- * Export an error to $? env var
- * code_error : the code error to export
- */
 void	export_errno(int code_error);
-/**
- * Get en env var (example $?)
- * var_name : the name of the var to get (exemple ? or PATH)
- */
 char	*ft_get_env(const char *var_name);
 /**
  * launch a series of command separated by a pipe.
@@ -81,8 +73,7 @@ void	close_fds(int *fds, int size);
  */
 char	*get_pathed_command(char *command);
 /**
- * Verify is the line has error syntax (example >>> or ||| or &&&)
- * command : the line to verify
+ * 
  */
 int		is_syntax_error(char *command);
 /**
@@ -150,53 +141,14 @@ int		get_triple_array_size(char ***commands_array);
  * commands_string : the commands_string to format
  */
 char	*get_reconstruct_space(char *commands_string);
-/**
- * replace env var ($NAME), for their value (for a string)
- * commands : the command on wich set the env var
- * buffer : a buffer in wich the reconstructed string will be push
- */
 int		reconstruct_arg_env_var(char *commands, t_str **buffer);
-/**
- * remove the quote based on minishell rules
- * commands : the command on wich remove quote
- */
 int		reconstruct_quote(char ***commands);
-/**
- * replace env var ($NAME), for their value
- * commands : the command on wich set the env var
- */
 int		reconstruct_env_var(char ***commands);
-/**
- * set or reset quote based on his own value (for an array)
- * quote : the quote to set
- * s : the string containing the char to analyse (s[0])
- */
-int		set_quote(char *quote, char *s);
-/**
- * push buffer with the first char of command
- * buffr : the buffer to push
- * command : a string, the first char will be push
- */
-int		push_char(t_str **buffer, char *command);
-/**
- * initialize a buffer if it is not
- * buffer : the buffer to initialize
- */
-int		initialize_buffer(t_str **buffer);
-/**
- * permit to add a reconstructed string to a command array.
- * commands : the command to set
- * buffer : the string buffer to set at the rank i, if null shift the command
- * on the left "1, null, 3, 4" become "1, 3, 4". if "null" the command
- * become "true"
- * i : the rank of the command to reset
- */
 int		set_command_arg(char **commands, t_str *buffer, int i);
-/**
- * return the number of c present in str
- * str : the string to parse
- * c : the char to search number of occurence
- */
+int		set_quote(char *quote, char *s);
+int		push_char(t_str **buffer, char *command);
+int		initialize_buffer(t_str **buffer);
+int		set_command_arg(char **commands, t_str *buffer, int i);
 int		get_char_occurence(char *str, char c);
 /**
  * Split the command, but deactivate the split when a quote (single or double)
@@ -205,9 +157,7 @@ int		get_char_occurence(char *str, char c);
  * c : the character to split on (here typicaly a space or a pipe)
  */
 char	**special_split(char const *s, char c);
-/**
- * Set up the signals for ctrl + c or ctrl + d
- */
+int		is_valid_env_id(char *arg);
 void	setup_signal(void);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 00:27:38 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/14 23:38:25 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 12:29:13 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,9 @@ int	ft_cd(char **command)
 {
 	char	buff[50];
 	char	*old_pwd;
+	int		i;
 
+	i = 0;
 	old_pwd = ft_get_env("PWD");
 	if (!old_pwd)
 		old_pwd = getcwd(buff, 50);

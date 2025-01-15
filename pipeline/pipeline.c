@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:56:03 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/14 23:30:40 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:29:09 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	manage_child(t_command_data *command_data, int i, int max)
 	buffer_errno = execute_child(command_data->commands_array[i]);
 	destroy_all(command_data);
 	export_errno(buffer_errno);
-	ft_exit_child(0);
+	ft_exit(0);
 }
 
 int	launch_pipe_series(t_command_data *command_data, int max)
