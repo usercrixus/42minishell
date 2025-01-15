@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:14:40 by gmorel            #+#    #+#             */
-/*   Updated: 2025/01/15 00:36:42 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:43:07 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ int		set_command_arg(char **commands, t_str *buffer, int i);
  * str : the string to parse
  * c : the char to search number of occurence
  */
-int		get_char_occurence(char *str, char c);
+int		gco(char *str, char c);
 /**
  * Split the command, but deactivate the split when a quote (single or double)
  * is found

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reconstruct_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 07:37:24 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/12 20:52:51 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:43:07 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	push_char(t_str **buffer, char *command)
 
 int	set_quote(char *quote, char *s)
 {
-	if (!*quote && (*s == '\'' || *s == '"') && get_char_occurence(s, *s) > 1)
+	if (!*quote && (*s == '\'' || *s == '"') && gco(s, *s) > 1)
 	{
 		*quote = *s;
 		return (1);

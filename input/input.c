@@ -6,7 +6,7 @@
 /*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 12:05:42 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/15 14:33:57 by gmorel           ###   ########.fr       */
+/*   Updated: 2025/01/15 14:43:23 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	input_loop(void)
 		line = readline("\033[1;32mminishell@chodel: \033[0m");
 		if (!line)
 			return ;
-		if (line && get_char_occurence(line, ' ') != ft_strlen(line))
+		if (line && gco(line, ' ') + gco(line, '	') != ft_strlen(line))
 		{
 			add_history(line);
 			if (!is_syntax_error(line))

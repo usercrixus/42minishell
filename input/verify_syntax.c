@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verify_syntax.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 01:52:48 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/10 01:11:18 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:43:07 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	is_syntax_error(char *command)
 		{
 			if (*command == quote)
 				quote = 0;
-			else if (get_char_occurence(command, *command) > 1)
+			else if (gco(command, *command) > 1)
 				quote = *command;
 		}
 		if (!quote)

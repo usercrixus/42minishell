@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmorel <gmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 20:34:56 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/15 00:43:46 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:43:07 by gmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	get_triple_array_size(char ***commands_array)
 	return (i);
 }
 
-int	get_char_occurence(char *str, char c)
+int	gco(char *str, char c)
 {
 	int	result;
 	int	i;
