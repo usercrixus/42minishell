@@ -31,7 +31,7 @@ OBJS = \
 		builtins/unset.o \
 		builtins/builtin_integration.o \
 		builtins/ft_exit.o \
-		utils.o \
+		utils/utils.o \
 
 all: $(LIBFT_LIB) $(NAME)
 

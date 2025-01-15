@@ -6,19 +6,19 @@
 /*   By: achaisne <achaisne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 22:27:35 by achaisne          #+#    #+#             */
-/*   Updated: 2025/01/14 17:50:27 by achaisne         ###   ########.fr       */
+/*   Updated: 2025/01/15 01:00:52 by achaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	build_here_doc_helper(t_str *str, char *line, t_str *buffer)
+int	push_here_doc_str(t_str *here_doc_str, char *line, t_str *buffer)
 {
 	line = ft_str_get_char_array(buffer, buffer->size);
 	if (!line)
 		return (free(line), ft_str_free(buffer), 0);
-	if (!ft_str_push(str, line, ft_strlen(line))
-		|| !ft_str_push(str, "\n", 1))
+	if (!ft_str_push(here_doc_str, line, ft_strlen(line))
+		|| !ft_str_push(here_doc_str, "\n", 1))
 		return (free(line), ft_str_free(buffer), 0);
 	free(line);
 	ft_str_free(buffer);
@@ -30,7 +30,7 @@ char	*read_line_helper(char *delimiter)
 	char	*line;
 
 	line = readline(">");
-	if (!line && ft_strncmp(ft_get_env("?"), "0", 2) == 0)
+	if (!line && errno == 0)
 	{
 		printf("bash: warning: here-document delimited by");
 		printf(" end-of-file (wanted '%s')\n", delimiter);
@@ -38,7 +38,7 @@ char	*read_line_helper(char *delimiter)
 	return (line);
 }
 
-int	build_here_doc(t_str *str, char *delimiter)
+int	build_here_doc(t_str *here_doc_str, char *delimiter)
 {
 	char	*line;
 	t_str	*buffer;
@@ -51,7 +51,7 @@ int	build_here_doc(t_str *str, char *delimiter)
 			return (free(line), 0);
 		if (buffer)
 		{
-			if (!build_here_doc_helper(str, line, buffer))
+			if (!push_here_doc_str(here_doc_str, line, buffer))
 				return (free(line), 0);
 			buffer = 0;
 		}
@@ -78,7 +78,7 @@ int	set_here_doc(char *delimiter)
 	if (!buff)
 		return (ft_str_free(str), 0);
 	tmp_file = open("here_doc", O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR);
-	if (!tmp_file)
+	if (tmp_file == -1)
 		return (free(buff), ft_str_free(str), 0);
 	write(tmp_file, buff, str->size - str->start);
 	return (close(tmp_file), free(buff), ft_str_free(str), 1);
